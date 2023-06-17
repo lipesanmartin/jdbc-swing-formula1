@@ -78,11 +78,11 @@ public class TestePiloto {
 									if (!piloto.apagarPiloto(pilotoId)) {
 										System.out.println("Erro, piloto não apagado");
 									}
-								
+
 								} else {
 									System.out.println("Operação cancelada!");
 								}
-							} 
+							}
 							break;
 						}
 					} catch (NumberFormatException erro) {

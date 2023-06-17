@@ -149,7 +149,7 @@ public class Corrida {
 			}
 		}
 	}
-	
+
 	public boolean apagarCorrida(Integer idCorrida) {
 		if (!consultarCorrida(idCorrida))
 			return false;

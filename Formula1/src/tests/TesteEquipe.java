@@ -78,11 +78,11 @@ public class TesteEquipe {
 									if (!equipe.apagarEquipe(equipeId)) {
 										System.out.println("Erro, equipe não apagada");
 									}
-								
+
 								} else {
 									System.out.println("Operação cancelada!");
 								}
-							} 
+							}
 							break;
 						}
 					} catch (NumberFormatException erro) {

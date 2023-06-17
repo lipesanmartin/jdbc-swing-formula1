@@ -83,7 +83,7 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-	
+
 	public boolean consultarEquipe(Integer idEquipe) {
 		// Define a conexão
 		Connection conexao = null;
@@ -117,7 +117,7 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-	
+
 	public boolean atualizarChefe(Integer idEquipe, String novoChefe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
@@ -148,7 +148,7 @@ public class Equipe {
 			}
 		}
 	}
-	
+
 	public boolean apagarEquipe(Integer idEquipe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
