@@ -170,7 +170,7 @@ public class Piloto {
 					System.out.println("Atualização realizada!");
 				return true;
 			} catch (SQLException erro) {
-				System.out.println("Erro ao atualizar a conta: " + erro.toString());
+				System.out.println("Erro ao apagar piloto: " + erro.toString());
 				return false;
 			} finally {
 				Conexao.fechaConexao(conexao);

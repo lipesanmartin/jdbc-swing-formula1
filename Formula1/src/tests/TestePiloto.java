@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import entities.Piloto;
 
-public class TestePiloto1 {
+public class TestePiloto {
 
 	public static void main(String[] args) {
 
