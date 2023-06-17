@@ -50,4 +50,5 @@ public class Equipe {
 		this.chefe = chefe;
 	}
 
+	
 }
