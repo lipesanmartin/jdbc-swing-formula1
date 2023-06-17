@@ -117,7 +117,7 @@ public class Piloto {
 		}
 	}
 
-	public boolean atualizarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro) {
+	public boolean atualizarNumCarro(Integer idPiloto, Integer numCarro) {
 		if (!consultarPiloto(idPiloto))
 			return false;
 		else {
@@ -127,13 +127,12 @@ public class Piloto {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update piloto set Nome=?, Nacionalidade=?, NumeroCarro=? where ID=?";
+				String sql = "update piloto set NumeroCarro=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
-				ps.setString(1, nome);
-				ps.setString(2, nacionalidade);
-				ps.setInt(3, numCarro);
+				ps.setInt(1, numCarro);
+				ps.setInt(2, idPiloto);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
 					System.out.println("Não foi feita a atualização!");
@@ -141,7 +140,7 @@ public class Piloto {
 					System.out.println("Atualização realizada!");
 				return true;
 			} catch (SQLException erro) {
-				System.out.println("Erro ao atualizar piloto: " + erro.toString());
+				System.out.println("Erro ao atualizar numero do carro: " + erro.toString());
 				return false;
 			} finally {
 				Conexao.fechaConexao(conexao);
