@@ -5,19 +5,18 @@ public class Corrida {
 	private Integer idCorrida;
 	private String nome;
 	private String local;
-	private Integer vencedorId;
-	private Integer equipeVencedoraId;
+	private Integer voltas;
 
 	public Corrida() {
 
 	}
 
-	public Corrida(Integer idCorrida, String nome, String local, Integer vencedorId, Integer equipeVencedoraId) {
+	public Corrida(Integer idCorrida, String nome, String local, Integer voltas) {
 		this.idCorrida = idCorrida;
 		this.nome = nome;
 		this.local = local;
-		this.vencedorId = vencedorId;
-		this.equipeVencedoraId = equipeVencedoraId;
+		this.voltas = voltas;
+
 	}
 
 	public Integer getIdCorrida() {
@@ -44,20 +43,13 @@ public class Corrida {
 		this.local = local;
 	}
 
-	public Integer getVencedorId() {
-		return vencedorId;
+
+	public Integer getVoltas() {
+		return voltas;
 	}
 
-	public void setVencedorId(Integer vencedorId) {
-		this.vencedorId = vencedorId;
-	}
-
-	public Integer getEquipeVencedoraId() {
-		return equipeVencedoraId;
-	}
-
-	public void setEquipeVencedoraId(Integer equipeVencedoraId) {
-		this.equipeVencedoraId = equipeVencedoraId;
+	public void setVoltas(Integer voltas) {
+		this.voltas = voltas;
 	}
 
 }

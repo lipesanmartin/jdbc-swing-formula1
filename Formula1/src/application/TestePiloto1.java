@@ -10,14 +10,14 @@ public class TestePiloto1 {
 
 		Scanner sc = new Scanner(System.in);
 		Piloto piloto = new Piloto();
-		int opcao, pilotoId, equipeId;
+		int opcao, pilotoId, numCarro;
 		String nome, nacionalidade;
 		boolean resultado;
 
 		do {
 			System.out.println("1 - Cadastrar piloto");
 			System.out.println("2 - Consultar piloto");
-			System.out.println("3 - Atualizar equipe do piloto");
+			System.out.println("3 - Atualizar piloto");
 			System.out.println("4 - Apagar piloto");
 			System.out.println("5 - Encerrar");
 			System.out.print("Entre com uma opção: ");
@@ -29,19 +29,20 @@ public class TestePiloto1 {
 					try {
 						System.out.print("Entre com o ID do Piloto: ");
 						pilotoId = Integer.parseInt(sc.nextLine());
-						System.out.print("Entre com o nome do piloto: ");
-						nome = sc.nextLine();
+
 						switch (opcao) {
 						case 1:
-							resultado = piloto.consultarPiloto(pilotoId, nome);
+							resultado = piloto.consultarPiloto(pilotoId);
 							if (resultado)
 								System.out.println("Piloto já cadastrado!");
 							else {
+								System.out.print("Entre com o nome do piloto: ");
+								nome = sc.nextLine();
 								System.out.print("Entre com a nacionalidade do piloto: ");
 								nacionalidade = sc.nextLine();
-								System.out.print("Entre com a ID de equipe do piloto: ");
-								equipeId = Integer.parseInt(sc.nextLine());
-								piloto.cadastrarPiloto(pilotoId, nome, nacionalidade, equipeId);
+								System.out.print("Entre com o numero do carro do piloto: ");
+								numCarro = Integer.parseInt(sc.nextLine());
+								piloto.cadastrarPiloto(pilotoId, nome, nacionalidade, numCarro);
 							}
 							break;
 						}

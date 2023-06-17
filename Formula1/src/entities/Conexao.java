@@ -19,9 +19,10 @@ public class Conexao {
 			System.out.println("Erro de conexão ao banco de dados: " + erro.toString());
 		} catch (Exception erro) {
 			System.out.println("Erro não identificado: " + erro.toString());
-		} 
+		}
 		return conexao;
 	}
+
 	public static void fechaConexao(Connection conexao) {
 		try {
 			conexao.close();
@@ -29,6 +30,5 @@ public class Conexao {
 			System.out.println("Erro ao fechar a conexão: " + erro.toString());
 		}
 	}
-	
-	
+
 }

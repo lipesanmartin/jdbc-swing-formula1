@@ -10,7 +10,7 @@ public class Piloto {
 	private Integer idPiloto;
 	private String nome;
 	private String nacionalidade;
-	private Integer idEquipe;
+	private Integer numCarro;
 
 	public Piloto() {
 	}
@@ -19,7 +19,7 @@ public class Piloto {
 		this.idPiloto = idPiloto;
 		this.nome = nome;
 		this.nacionalidade = nacionalidade;
-		this.idEquipe = idEquipe;
+		this.numCarro = idEquipe;
 	}
 
 	public Integer getIdPiloto() {
@@ -46,28 +46,28 @@ public class Piloto {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public Integer getIdEquipe() {
-		return idEquipe;
+	public Integer getNumCarro() {
+		return numCarro;
 	}
 
-	public void setIdEquipe(Integer idEquipe) {
-		this.idEquipe = idEquipe;
+	public void setNumCarro(Integer idEquipe) {
+		this.numCarro = idEquipe;
 	}
 
-	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer idEquipe) {
+	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "insert into piloto set ID=?, Nome=?, Nacionalidade=?, EquipeID=?;";
+			String sql = "insert into piloto set ID=?, Nome=?, Nacionalidade=?, NumeroCarro=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
 			ps.setInt(1, idPiloto);
 			ps.setString(2, nome);
 			ps.setString(3, nacionalidade);
-			ps.setInt(4, idEquipe);
+			ps.setInt(4, numCarro);
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
 				System.out.println("Não foi feito o cadastro!!");
@@ -83,18 +83,17 @@ public class Piloto {
 		}
 	}
 
-	public boolean consultarPiloto(Integer idPiloto, String nome) {
+	public boolean consultarPiloto(Integer idPiloto) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select * from piloto where ID=? and Nome=?";
+			String sql = "select * from piloto where ID=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
 			ps.setInt(1, idPiloto);
-			ps.setString(2, nome);
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
@@ -106,20 +105,20 @@ public class Piloto {
 					this.idPiloto = rs.getInt("ID");
 					this.nome = rs.getString("Nome");
 					this.nacionalidade = rs.getString("Nacionalidade");
-					this.idEquipe = rs.getInt("EquipeID");
+					this.numCarro = rs.getInt("NumeroCarro");
 				}
 				return true;
 			}
 		} catch (SQLException erro) {
-			System.out.println("Erro ao consultar a conta: " + erro.toString());
+			System.out.println("Erro ao consultar o piloto: " + erro.toString());
 			return false;
 		} finally {
 			Conexao.fechaConexao(conexao);
 		}
 	}
 
-	public boolean atualizarEquipePiloto(Integer idPiloto, Integer idEquipe) {
-		if (!consultarPiloto(idPiloto, nome))
+	public boolean atualizarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro) {
+		if (!consultarPiloto(idPiloto))
 			return false;
 		else {
 			// Define a conexão
@@ -128,20 +127,21 @@ public class Piloto {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update piloto set EquipeID=? where ID=?";
+				String sql = "update piloto set Nome=?, Nacionalidade=?, NumeroCarro=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
-				ps.setInt(1, idEquipe);
-				ps.setInt(2, idPiloto);
+				ps.setString(1, nome);
+				ps.setString(2, nacionalidade);
+				ps.setInt(3, numCarro);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
-					System.out.println("Não foi feita a atualiza��o!");
+					System.out.println("Não foi feita a atualização!");
 				else
 					System.out.println("Atualização realizada!");
 				return true;
 			} catch (SQLException erro) {
-				System.out.println("Erro ao atualizar a conta: " + erro.toString());
+				System.out.println("Erro ao atualizar piloto: " + erro.toString());
 				return false;
 			} finally {
 				Conexao.fechaConexao(conexao);
@@ -150,7 +150,7 @@ public class Piloto {
 	}
 
 	public boolean apagarPiloto(Integer idPiloto) {
-		if (!consultarPiloto(idPiloto, nome))
+		if (!consultarPiloto(idPiloto))
 			return false;
 		else {
 			// Define a conexão
