@@ -99,8 +99,8 @@ public class Corrida {
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
-				System.out.println("Piloto não cadastrado!");
-				return false; // Piloto não cadastrado
+				System.out.println("Corrida não cadastrada!");
+				return false; // Corrida não cadastrada
 			} else {
 				// Efetua a leitura do registro da tabela
 				while (rs.next()) {
@@ -112,7 +112,7 @@ public class Corrida {
 				return true;
 			}
 		} catch (SQLException erro) {
-			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			System.out.println("Erro ao consultar a corrida: " + erro.toString());
 			return false;
 		} finally {
 			Conexao.fechaConexao(conexao);
@@ -133,7 +133,7 @@ public class Corrida {
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
-				ps.setInt(1, voltas);
+				ps.setInt(1, novasVoltas);
 				ps.setInt(2, idCorrida);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
