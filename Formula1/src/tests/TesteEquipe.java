@@ -17,7 +17,7 @@ public class TesteEquipe {
 		do {
 			System.out.println("1 - Cadastrar equipe");
 			System.out.println("2 - Consultar equipe");
-			System.out.println("3 - Atualizar chefe de equipe");
+			System.out.println("3 - Atualizar equipe");
 			System.out.println("4 - Apagar equipe");
 			System.out.println("5 - Encerrar");
 			System.out.print("Entre com uma opção: ");
@@ -56,13 +56,14 @@ public class TesteEquipe {
 						case 3:
 							resultado = equipe.consultarEquipe(equipeId);
 							if (resultado) {
-								System.out.println("ID: " + equipe.getIdEquipe());
-								System.out.println("Nome: " + equipe.getNome());
-								System.out.println("Chefe: " + equipe.getChefe());
-								System.out.print("Entre com o novo chefe de equipe: ");
+								System.out.print("Entre com o nome da equipe: ");
+								nome = sc.nextLine();
+								System.out.print("Entre com a nacionalidade da equipe: ");
+								nacionalidade = sc.nextLine();
+								System.out.print("Entre com o nome do chefe de equipe: ");
 								nomeChefe = sc.nextLine();
-								if (!equipe.atualizarChefe(equipeId, nomeChefe))
-									System.out.println("Erro na atualização do chefe de equipe!");
+								if (!equipe.atualizarEquipe(equipeId, nome, nacionalidade, nomeChefe))
+									System.out.println("Erro na atualização da equipe!");
 							}
 							break;
 						case 4:
@@ -70,7 +71,7 @@ public class TesteEquipe {
 							if (resultado) {
 								System.out.println("ID: " + equipe.getIdEquipe());
 								System.out.println("Nome: " + equipe.getNome());
-								System.out.println("Nacionalidade: " + equipe.getNacionalidade());
+								System.out.println("País: " + equipe.getNacionalidade());
 								System.out.println("Chefe: " + equipe.getChefe());
 								System.out.print("Tem certeza que quer apagar a equipe (s/n)? ");
 								char decisao = sc.nextLine().charAt(0);

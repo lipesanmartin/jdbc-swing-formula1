@@ -10,14 +10,14 @@ public class TesteCorrida {
 
 		Scanner sc = new Scanner(System.in);
 		Corrida corrida = new Corrida();
-		int opcao, corridaId, numVoltas;
+		int opcao, corridaId, vencedorId;
 		String nome, local;
 		boolean resultado;
 
 		do {
 			System.out.println("1 - Cadastrar corrida");
 			System.out.println("2 - Consultar corrida");
-			System.out.println("3 - Atualizar numero de voltas");
+			System.out.println("3 - Atualizar vencedor");
 			System.out.println("4 - Apagar corrida");
 			System.out.println("5 - Encerrar");
 			System.out.print("Entre com uma opção: ");
@@ -39,9 +39,9 @@ public class TesteCorrida {
 								nome = sc.nextLine();
 								System.out.print("Entre com o local da corrida: ");
 								local = sc.nextLine();
-								System.out.print("Entre com o numero de voltas: ");
-								numVoltas = Integer.parseInt(sc.nextLine());
-								corrida.cadastrarCorrida(corridaId, nome, local, numVoltas);
+								System.out.print("Entre com o Id do vencedor: ");
+								vencedorId = Integer.parseInt(sc.nextLine());
+								corrida.cadastrarCorrida(corridaId, nome, local, vencedorId);
 							}
 							break;
 						case 2:
@@ -50,7 +50,7 @@ public class TesteCorrida {
 								System.out.println("ID: " + corrida.getIdCorrida());
 								System.out.println("Nome: " + corrida.getNome());
 								System.out.println("Local: " + corrida.getLocal());
-								System.out.println("Numero de voltas: " + corrida.getVoltas());
+								System.out.println("Vencedor: " + corrida.getVencedor());
 							}
 							break;
 						case 3:
@@ -58,11 +58,11 @@ public class TesteCorrida {
 							if (resultado) {
 								System.out.println("ID: " + corrida.getIdCorrida());
 								System.out.println("Nome: " + corrida.getNome());
-								System.out.println("Numero de voltas: " + corrida.getVoltas());
+								System.out.println("Numero de voltas: " + corrida.getVencedor());
 								System.out.print("Entre com o novo numero de voltas: ");
-								numVoltas = Integer.parseInt(sc.nextLine());
-								if (!corrida.atualizarNumeroDeVoltas(corridaId, numVoltas))
-									System.out.println("Erro na atualização do numero de voltas!");
+								vencedorId = Integer.parseInt(sc.nextLine());
+								if (!corrida.atualizarVencedor(corridaId, vencedorId))
+									System.out.println("Erro na atualização do vencedor! Cadastre o piloto primeiro!");
 							}
 							break;
 						case 4:
@@ -71,7 +71,7 @@ public class TesteCorrida {
 								System.out.println("ID: " + corrida.getIdCorrida());
 								System.out.println("Nome: " + corrida.getNome());
 								System.out.println("Local: " + corrida.getLocal());
-								System.out.println("Numero de voltas: " + corrida.getVoltas());
+								System.out.println("Vencedor: " + corrida.getVencedor());
 								System.out.print("Tem certeza que quer apagar a corrida (s/n)? ");
 								char decisao = sc.nextLine().charAt(0);
 								if (decisao == 's') {

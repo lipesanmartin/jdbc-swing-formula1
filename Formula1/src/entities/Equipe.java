@@ -16,6 +16,13 @@ public class Equipe {
 
 	}
 
+	public Equipe(Integer idEquipe) {
+		this.idEquipe = idEquipe;
+		this.nome = "";
+		this.nacionalidade = "";
+		this.chefe = "";
+	}
+
 	public Equipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		this.idEquipe = idEquipe;
 		this.nome = nome;
@@ -55,13 +62,47 @@ public class Equipe {
 		this.chefe = chefe;
 	}
 
+	public boolean cadastrarEquipe(Integer idEquipe) {
+		// Define a conexão
+		Connection conexao = null;
+		try {
+			conexao = Conexao.conectaBanco();
+			if (!consultarEquipe(idEquipe)) {
+				// Define a consulta
+				String sql = "insert into equipe set ID=?, Nome=?, País=?, Chefe=?;";
+				// Prepara a consulta
+				PreparedStatement ps = conexao.prepareStatement(sql);
+				// Define os parâmetros da consulta
+				ps.setInt(1, idEquipe);
+				ps.setString(2, nome);
+				ps.setString(3, nacionalidade);
+				ps.setString(4, chefe);
+				int totalRegistrosAfetados = ps.executeUpdate();
+				if (totalRegistrosAfetados == 0) {
+					System.out.println("Não foi feito o cadastro!!");
+					return false;
+				}
+				System.out.println("Cadastro realizado!");
+				return true;
+			} else {
+				System.out.println("ID de Equipe já cadastrada");
+				return true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao cadastrar a equipe: " + erro.toString());
+			return false;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+
 	public boolean cadastrarEquipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "insert into equipe set ID=?, Nome=?, Pais=?, Chefe=?;";
+			String sql = "insert into equipe set ID=?, Nome=?, País=?, Chefe=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
@@ -105,7 +146,7 @@ public class Equipe {
 				while (rs.next()) {
 					this.idEquipe = rs.getInt("ID");
 					this.nome = rs.getString("Nome");
-					this.nacionalidade = rs.getString("Pais");
+					this.nacionalidade = rs.getString("País");
 					this.chefe = rs.getString("Chefe");
 				}
 				return true;
@@ -118,7 +159,7 @@ public class Equipe {
 		}
 	}
 
-	public boolean atualizarChefe(Integer idEquipe, String novoChefe) {
+	public boolean atualizarEquipe(Integer idEquipe, String nome, String pais, String chefe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
 		else {
@@ -128,12 +169,14 @@ public class Equipe {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update equipe set Chefe=? where ID=?";
+				String sql = "update equipe set Nome=?, País=?, Chefe=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
-				ps.setString(1, novoChefe);
-				ps.setInt(2, idEquipe);
+				ps.setString(1, nome);
+				ps.setString(2, pais);
+				ps.setString(3, chefe);
+				ps.setInt(4, idEquipe);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
 					System.out.println("Não foi feita a atualização!");
@@ -141,13 +184,106 @@ public class Equipe {
 					System.out.println("Atualização realizada!");
 				return true;
 			} catch (SQLException erro) {
-				System.out.println("Erro ao atualizar nome do chefe de equipe: " + erro.toString());
+				System.out.println("Erro ao atualizar equipe: " + erro.toString());
 				return false;
 			} finally {
 				Conexao.fechaConexao(conexao);
 			}
 		}
 	}
+
+//	public boolean atualizarNome(Integer idEquipe, String novoNome) {
+//		if (!consultarEquipe(idEquipe))
+//			return false;
+//		else {
+//			// Define a conexão
+//			Connection conexao = null;
+//			try {
+//				// Define a conex�o
+//				conexao = Conexao.conectaBanco();
+//				// Define a consulta
+//				String sql = "update equipe set Nome=? where ID=?";
+//				// Prepara a consulta
+//				PreparedStatement ps = conexao.prepareStatement(sql);
+//				// Define os par�metros da atualiza��o
+//				ps.setString(1, novoNome);
+//				ps.setInt(2, idEquipe);
+//				int totalRegistrosAfetados = ps.executeUpdate();
+//				if (totalRegistrosAfetados == 0)
+//					System.out.println("Não foi feita a atualização!");
+//				else
+//					System.out.println("Atualização realizada!");
+//				return true;
+//			} catch (SQLException erro) {
+//				System.out.println("Erro ao atualizar nome da equipe: " + erro.toString());
+//				return false;
+//			} finally {
+//				Conexao.fechaConexao(conexao);
+//			}
+//		}
+//	}
+//	
+//	public boolean atualizarPais(Integer idEquipe, String novoPais) {
+//		if (!consultarEquipe(idEquipe))
+//			return false;
+//		else {
+//			// Define a conexão
+//			Connection conexao = null;
+//			try {
+//				// Define a conex�o
+//				conexao = Conexao.conectaBanco();
+//				// Define a consulta
+//				String sql = "update equipe set País=? where ID=?";
+//				// Prepara a consulta
+//				PreparedStatement ps = conexao.prepareStatement(sql);
+//				// Define os par�metros da atualiza��o
+//				ps.setString(1, novoPais);
+//				ps.setInt(2, idEquipe);
+//				int totalRegistrosAfetados = ps.executeUpdate();
+//				if (totalRegistrosAfetados == 0)
+//					System.out.println("Não foi feita a atualização!");
+//				else
+//					System.out.println("Atualização realizada!");
+//				return true;
+//			} catch (SQLException erro) {
+//				System.out.println("Erro ao atualizar país da equipe: " + erro.toString());
+//				return false;
+//			} finally {
+//				Conexao.fechaConexao(conexao);
+//			}
+//		}
+//	}
+//
+//	public boolean atualizarChefe(Integer idEquipe, String novoChefe) {
+//		if (!consultarEquipe(idEquipe))
+//			return false;
+//		else {
+//			// Define a conexão
+//			Connection conexao = null;
+//			try {
+//				// Define a conex�o
+//				conexao = Conexao.conectaBanco();
+//				// Define a consulta
+//				String sql = "update equipe set Chefe=? where ID=?";
+//				// Prepara a consulta
+//				PreparedStatement ps = conexao.prepareStatement(sql);
+//				// Define os par�metros da atualiza��o
+//				ps.setString(1, novoChefe);
+//				ps.setInt(2, idEquipe);
+//				int totalRegistrosAfetados = ps.executeUpdate();
+//				if (totalRegistrosAfetados == 0)
+//					System.out.println("Não foi feita a atualização!");
+//				else
+//					System.out.println("Atualização realizada!");
+//				return true;
+//			} catch (SQLException erro) {
+//				System.out.println("Erro ao atualizar nome do chefe de equipe: " + erro.toString());
+//				return false;
+//			} finally {
+//				Conexao.fechaConexao(conexao);
+//			}
+//		}
+//	}
 
 	public boolean apagarEquipe(Integer idEquipe) {
 		if (!consultarEquipe(idEquipe))

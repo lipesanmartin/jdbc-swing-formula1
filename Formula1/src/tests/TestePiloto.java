@@ -10,7 +10,7 @@ public class TestePiloto {
 
 		Scanner sc = new Scanner(System.in);
 		Piloto piloto = new Piloto();
-		int opcao, pilotoId, numCarro;
+		int opcao, pilotoId, numCarro, equipeId;
 		String nome, nacionalidade;
 		boolean resultado;
 
@@ -41,7 +41,9 @@ public class TestePiloto {
 								nacionalidade = sc.nextLine();
 								System.out.print("Entre com o numero do carro do piloto: ");
 								numCarro = Integer.parseInt(sc.nextLine());
-								piloto.cadastrarPiloto(pilotoId, nome, nacionalidade, numCarro);
+								System.out.print("Entre com a ID da equipe do piloto: ");
+								equipeId = Integer.parseInt(sc.nextLine());
+								piloto.cadastrarPiloto(pilotoId, nome, nacionalidade, numCarro, equipeId);
 							}
 							break;
 						case 2:
@@ -51,6 +53,8 @@ public class TestePiloto {
 								System.out.println("Nome: " + piloto.getNome());
 								System.out.println("Nacionalidade: " + piloto.getNacionalidade());
 								System.out.println("Número do carro: " + piloto.getNumCarro());
+								System.out.println("ID da Equipe: " + piloto.getIdEquipe());
+								
 							}
 							break;
 						case 3:
