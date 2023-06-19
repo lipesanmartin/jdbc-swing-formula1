@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import connection.Conexao;
+
 public class Corrida {
 
 	private Integer idCorrida;

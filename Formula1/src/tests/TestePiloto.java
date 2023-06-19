@@ -54,7 +54,7 @@ public class TestePiloto {
 								System.out.println("Nacionalidade: " + piloto.getNacionalidade());
 								System.out.println("Número do carro: " + piloto.getNumCarro());
 								System.out.println("ID da Equipe: " + piloto.getIdEquipe());
-								
+
 							}
 							break;
 						case 3:

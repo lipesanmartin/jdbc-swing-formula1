@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import connection.Conexao;
+
 public class Piloto {
 
 	private Integer idPiloto;
@@ -15,7 +17,7 @@ public class Piloto {
 
 	public Piloto() {
 	}
-	
+
 	public Piloto(Integer idPiloto) {
 		this.idPiloto = idPiloto;
 		this.nome = "";
@@ -108,8 +110,9 @@ public class Piloto {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-	
-	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro, Integer idEquipe) {
+
+	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro,
+			Integer idEquipe) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
@@ -206,7 +209,7 @@ public class Piloto {
 			}
 		}
 	}
-	
+
 //	public boolean atualizarEquipe(Integer idPiloto, Integer idEquipe) {
 //		if (!consultarPiloto(idPiloto))
 //			return false;

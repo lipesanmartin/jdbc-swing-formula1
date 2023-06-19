@@ -173,8 +173,9 @@ public class JanelaEquipe {
 							JOptionPane.YES_NO_OPTION);
 					if (confirmacao == JOptionPane.YES_OPTION) {
 						// Apaga a equipe da tabela
-						if(!equipe.apagarEquipe(id)) {
-							JOptionPane.showMessageDialog(janelaEquipe, "Para apagar a equipe, apague os pilotos primeiro!");
+						if (!equipe.apagarEquipe(id)) {
+							JOptionPane.showMessageDialog(janelaEquipe,
+									"Para apagar a equipe, apague os pilotos primeiro!");
 						} else {
 							JOptionPane.showMessageDialog(janelaEquipe, "Equipe apagada da tabela!");
 						}
