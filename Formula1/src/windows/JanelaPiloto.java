@@ -21,6 +21,7 @@ public class JanelaPiloto {
 		janelaPiloto.setResizable(false); // A janela n�o poder� ter o tamanho ajustado
 		janelaPiloto.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		janelaPiloto.setSize(500, 400); // Define tamanho da janela
+		janelaPiloto.setLocationRelativeTo(null);
 		// Define o layout da janela
 		Container caixa = janelaPiloto.getContentPane();
 		caixa.setLayout(null);
@@ -50,7 +51,7 @@ public class JanelaPiloto {
 		jTextEquipe.setEnabled(false);
 		// Posiciona os input box
 		jTextId.setBounds(180, 40, 50, 20);
-		jTextNome.setBounds(180, 80, 50, 20);
+		jTextNome.setBounds(180, 80, 150, 20);
 		jTextNacionalidade.setBounds(180, 120, 150, 20);
 		jTextNumero.setBounds(180, 160, 50, 20);
 		jTextEquipe.setBounds(180, 200, 50, 20);
@@ -92,6 +93,7 @@ public class JanelaPiloto {
 					int numCarro, equipeId;
 
 					if (!piloto.consultarPiloto(id)) {
+						JOptionPane.showMessageDialog(janelaPiloto, "Piloto não cadastrado.");
 						nome = "";
 						nacionalidade = "";
 						numCarro = 0;
@@ -150,7 +152,8 @@ public class JanelaPiloto {
 					} else {
 						if (!piloto.consultarPiloto(id)) {
 							if (!piloto.cadastrarPiloto(id, nome, nacionalidade, numCarro, idEquipe)) {
-								JOptionPane.showMessageDialog(janelaPiloto, "Erro no cadastro do piloto!");
+								JOptionPane.showMessageDialog(janelaPiloto,
+										"Erro no cadastro do piloto! A equipe precisa estar cadastrada no sistema!");
 							} else {
 								JOptionPane.showMessageDialog(janelaPiloto, "Cadastro realizado!");
 							}

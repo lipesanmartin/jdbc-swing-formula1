@@ -20,7 +20,8 @@ public class JanelaEquipe {
 		JFrame janelaEquipe = new JFrame("Atualização de equipe"); // Janela Normal
 		janelaEquipe.setResizable(false); // A janela não poderá ter o tamanho ajustado
 		janelaEquipe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		janelaEquipe.setSize(500, 400); // Define tamanho da janela
+		janelaEquipe.setSize(500, 350); // Define tamanho da janela
+		janelaEquipe.setLocationRelativeTo(null);
 		// Define o layout da janela
 		Container caixa = janelaEquipe.getContentPane();
 		caixa.setLayout(null);
@@ -63,14 +64,14 @@ public class JanelaEquipe {
 		botaoConsultar.setBounds(230, 40, 100, 20);
 		janelaEquipe.add(botaoConsultar);
 		JButton botaoGravar = new JButton("Gravar");
-		botaoGravar.setBounds(50, 275, 100, 20);
+		botaoGravar.setBounds(50, 240, 100, 20);
 		botaoGravar.setEnabled(false);
 		janelaEquipe.add(botaoGravar);
 		JButton botaoLimpar = new JButton("Limpar");
-		botaoLimpar.setBounds(350, 275, 100, 20);
+		botaoLimpar.setBounds(350, 240, 100, 20);
 		janelaEquipe.add(botaoLimpar);
 		JButton botaoApagar = new JButton("Apagar");
-		botaoApagar.setBounds(200, 275, 100, 20);
+		botaoApagar.setBounds(200, 240, 100, 20);
 		botaoApagar.setEnabled(false);
 		janelaEquipe.add(botaoApagar);
 		// Define objeto equipe para pesquisar no banco de dados
@@ -84,6 +85,7 @@ public class JanelaEquipe {
 					String nome, nacionalidade, chefeEquipe;
 
 					if (!equipe.consultarEquipe(id)) {
+						JOptionPane.showMessageDialog(janelaEquipe, "Equipe não cadastrada.");
 						nome = "";
 						nacionalidade = "";
 						chefeEquipe = "";
@@ -94,6 +96,8 @@ public class JanelaEquipe {
 						nacionalidade = equipe.getNacionalidade();
 						chefeEquipe = equipe.getChefe();
 						botaoApagar.setEnabled(true);
+						botaoGravar.setText("Alterar");
+						;
 					}
 					jTextNome.setEnabled(true);
 					jTextId.setEnabled(false);
@@ -158,7 +162,7 @@ public class JanelaEquipe {
 				botaoGravar.setEnabled(false);
 				botaoLimpar.setEnabled(true);
 				jTextId.requestFocus(); // Colocar o foco em um campo
-				botaoGravar.setBounds(50, 275, 100, 20);
+				botaoGravar.setBounds(50, 240, 100, 20);
 				botaoGravar.setText("Gravar");
 			}
 		});
@@ -191,7 +195,7 @@ public class JanelaEquipe {
 						botaoConsultar.setEnabled(true);
 						botaoGravar.setEnabled(false);
 						botaoApagar.setEnabled(false);
-						botaoGravar.setBounds(50, 275, 100, 20);
+						botaoGravar.setBounds(50, 240, 100, 20);
 						botaoGravar.setText("Gravar");
 					}
 				} else {
@@ -215,7 +219,7 @@ public class JanelaEquipe {
 				botaoLimpar.setEnabled(true);
 				botaoApagar.setEnabled(false);
 				jTextId.requestFocus(); // Colocar o foco em um campo
-				botaoGravar.setBounds(50, 275, 100, 20);
+				botaoGravar.setBounds(50, 240, 100, 20);
 				botaoGravar.setText("Gravar");
 			}
 		});

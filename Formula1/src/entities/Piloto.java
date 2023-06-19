@@ -116,8 +116,6 @@ public class Piloto {
 		// Define a conexão
 		Connection conexao = null;
 		try {
-			Equipe equipe = new Equipe(idEquipe);
-			equipe.cadastrarEquipe(idEquipe);
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
 			String sql = "insert into piloto set ID=?, Nome=?, Nacionalidade=?, NumeroCarro=?, EquipeID=?;";

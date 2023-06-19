@@ -17,6 +17,7 @@ public class JanelaPrincipal {
 		janelaPrincipal.setResizable(false);
 		janelaPrincipal.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		janelaPrincipal.setSize(400, 300);
+		janelaPrincipal.setLocationRelativeTo(null);
 		// cria o menu da janela principal
 		JMenuBar menuBar = new JMenuBar();
 		// adiciona a barra de menu ao frame
