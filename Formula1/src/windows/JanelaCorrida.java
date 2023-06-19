@@ -143,7 +143,7 @@ public class JanelaCorrida {
 							}
 						} else {
 							if (!corrida.atualizarVencedor(id, vencedorId)) {
-								JOptionPane.showMessageDialog(janelaCorrida, "Erro na atualização da corrida!");
+								JOptionPane.showMessageDialog(janelaCorrida, "Erro na atualização da corrida! O piloto vencedor precisa estar cadastrado!");
 							} else {
 								JOptionPane.showMessageDialog(janelaCorrida, "Atualização realizada!");
 							}
