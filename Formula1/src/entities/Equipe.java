@@ -135,7 +135,7 @@ public class Equipe {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select ID from equipe;";
+			String sql = "select ID from equipe order by ID;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Executa a consulta, resultando em um objeto da classe ResultSet

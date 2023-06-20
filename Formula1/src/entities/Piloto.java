@@ -215,7 +215,7 @@ public class Piloto {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select ID from piloto;";
+			String sql = "select ID from piloto order by ID;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Executa a consulta, resultando em um objeto da classe ResultSet
