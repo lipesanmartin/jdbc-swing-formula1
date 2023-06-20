@@ -231,6 +231,7 @@ public class JanelaPiloto {
 					jTextNumero.setText("");
 					jTextNomeEquipe.setText("");
 					equipeDropdown.resetKeyboardActions();
+					labelEquipe.setText("ID Equipe: ");
 					jTextId.setEnabled(true);
 					jTextNome.setEnabled(false);
 					jTextNacionalidade.setEnabled(false);
@@ -266,6 +267,7 @@ public class JanelaPiloto {
 						jTextNacionalidade.setText("");
 						jTextNumero.setText("");
 						jTextNomeEquipe.setText("");
+						labelEquipe.setText("ID Equipe: ");
 						jTextId.setEnabled(true);
 						jTextNome.setEnabled(false);
 						jTextNacionalidade.setEnabled(false);
@@ -290,6 +292,7 @@ public class JanelaPiloto {
 				jTextNome.setText(""); // Limpar campo
 				jTextNacionalidade.setText(""); // Limpar campo
 				jTextNumero.setText(""); // Limpar campo
+				labelEquipe.setText("ID Equipe: ");
 				jTextId.setEnabled(true);
 				jTextNome.setEnabled(false);
 				jTextNacionalidade.setEnabled(false);
