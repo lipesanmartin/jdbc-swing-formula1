@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.Conexao;
 
@@ -63,7 +65,7 @@ public class Equipe {
 	public void setChefe(String chefe) {
 		this.chefe = chefe;
 	}
-
+	
 	public boolean cadastrarEquipe(Integer idEquipe) {
 		// Define a conexão
 		Connection conexao = null;
@@ -126,6 +128,37 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
+	
+	public List<Integer> getEquipeIdList() {
+		Connection conexao = null;
+		List<Integer> lista = new ArrayList<>();
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select ID from equipe;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há equipes cadastradas!");
+				return lista; // Equipe não cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					lista.add(rs.getInt("ID"));
+					
+				}
+				return lista;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return lista;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+	
 
 	public boolean consultarEquipe(Integer idEquipe) {
 		// Define a conexão
