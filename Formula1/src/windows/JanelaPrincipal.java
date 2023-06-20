@@ -46,6 +46,7 @@ public class JanelaPrincipal {
         JFrame janelaEquipe = JanelaEquipe.criarJanelaEquipe();
         JFrame janelaCorrida = JanelaCorrida.criarJanelaCorrida();
         // adiciona ação para o item de menu
+        
         menuPiloto.addActionListener(new ActionListener() {
 
             @Override

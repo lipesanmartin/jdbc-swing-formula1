@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.Conexao;
 
@@ -204,6 +206,36 @@ public class Piloto {
 			} finally {
 				Conexao.fechaConexao(conexao);
 			}
+		}
+	}
+	
+	public List<Integer> getPilotoIdList() {
+		Connection conexao = null;
+		List<Integer> lista = new ArrayList<>();
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select ID from piloto;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há pilotos cadastrados!");
+				return lista; // Equipe não cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					lista.add(rs.getInt("ID"));
+					
+				}
+				return lista;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return lista;
+		} finally {
+			Conexao.fechaConexao(conexao);
 		}
 	}
 
