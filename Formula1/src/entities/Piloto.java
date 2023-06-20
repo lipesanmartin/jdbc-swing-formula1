@@ -74,42 +74,40 @@ public class Piloto {
 		this.idEquipe = idEquipe;
 	}
 
-	public boolean cadastrarPiloto(Integer idPiloto) {
-		// Define a conexão
-		Connection conexao = null;
-		try {
-			if (!consultarPiloto(idPiloto)) {
-				Equipe equipe = new Equipe(idEquipe);
-				equipe.cadastrarEquipe(idEquipe);
-				conexao = Conexao.conectaBanco();
-				// Define a consulta
-				String sql = "insert into equipe set ID=?, Nome=?, Nacionalidade=?, NumeroCarro=?, EquipeID=?;";
-				// Prepara a consulta
-				PreparedStatement ps = conexao.prepareStatement(sql);
-				// Define os parâmetros da consulta
-				ps.setInt(1, idEquipe);
-				ps.setString(2, nome);
-				ps.setString(3, nacionalidade);
-				ps.setInt(4, numCarro);
-				ps.setInt(5, idEquipe);
-				int totalRegistrosAfetados = ps.executeUpdate();
-				if (totalRegistrosAfetados == 0) {
-					System.out.println("Não foi feito o cadastro!!");
-					return false;
-				}
-				System.out.println("Cadastro realizado!");
-				return true;
-			} else {
-				System.out.println("ID de Equipe já cadastrada");
-				return true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao cadastrar a equipe: " + erro.toString());
-			return false;
-		} finally {
-			Conexao.fechaConexao(conexao);
-		}
-	}
+//	public boolean cadastrarPiloto(Integer idPiloto) {
+//		// Define a conexão
+//		Connection conexao = null;
+//		try {
+//			if (!consultarPiloto(idPiloto)) {
+//				conexao = Conexao.conectaBanco();
+//				// Define a consulta
+//				String sql = "insert into piloto set ID=?, Nome=?, Nacionalidade=?, NumeroCarro=?, EquipeID=?;";
+//				// Prepara a consulta
+//				PreparedStatement ps = conexao.prepareStatement(sql);
+//				// Define os parâmetros da consulta
+//				ps.setInt(1, idEquipe);
+//				ps.setString(2, nome);
+//				ps.setString(3, nacionalidade);
+//				ps.setInt(4, numCarro);
+//				ps.setInt(5, idEquipe);
+//				int totalRegistrosAfetados = ps.executeUpdate();
+//				if (totalRegistrosAfetados == 0) {
+//					System.out.println("Não foi feito o cadastro!!");
+//					return false;
+//				}
+//				System.out.println("Cadastro realizado!");
+//				return true;
+//			} else {
+//				System.out.println("ID de Equipe já cadastrada");
+//				return true;
+//			}
+//		} catch (SQLException erro) {
+//			System.out.println("Erro ao cadastrar a equipe: " + erro.toString());
+//			return false;
+//		} finally {
+//			Conexao.fechaConexao(conexao);
+//		}
+//	}
 
 	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro,
 			Integer idEquipe) {
@@ -177,7 +175,7 @@ public class Piloto {
 		}
 	}
 
-	public boolean atualizarNumCarro(Integer idPiloto, Integer numCarro) {
+	public boolean atualizarPiloto(Integer idPiloto, Integer numCarro, Integer idEquipe) {
 		if (!consultarPiloto(idPiloto))
 			return false;
 		else {
@@ -187,12 +185,13 @@ public class Piloto {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update piloto set NumeroCarro=? where ID=?";
+				String sql = "update piloto set NumeroCarro=?, EquipeID=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
 				ps.setInt(1, numCarro);
-				ps.setInt(2, idPiloto);
+				ps.setInt(2, idEquipe);
+				ps.setInt(3, idPiloto);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
 					System.out.println("Não foi feita a atualização!");
