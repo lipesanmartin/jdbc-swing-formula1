@@ -20,10 +20,21 @@ import entities.Equipe;
 import entities.Piloto;
 
 public class JanelaCorrida {
+	private JFrame janelaCorrida;
+	private JTextField jTextId;
+	private JTextField jTextNome;
+	private JTextField jTextLocal;
+	JComboBox<Integer> dropdownVencedorId;
+	JTextField jTextVencedorNome;
+	JTextField jTextEquipeVencedora;
+	private JButton botaoConsultar;
+	private JButton botaoGravar;
+	private JButton botaoLimpar;
+	private JButton botaoApagar;
 
-	public static JFrame criarJanelaCorrida() {
+	public JFrame criarJanelaCorrida() {
 		// Define a janela
-		JFrame janelaCorrida = new JFrame("Atualização de corrida"); // Janela Normal
+		janelaCorrida = new JFrame("Atualização de corrida"); // Janela Normal
 		janelaCorrida.setResizable(false); // A janela não poderá ter o tamanho ajustado
 		janelaCorrida.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		janelaCorrida.setSize(500, 400); // Define tamanho da janela
@@ -46,12 +57,12 @@ public class JanelaCorrida {
 		labelVencedorNome.setBounds(50, 200, 100, 20);
 		labelEquipeVencedora.setBounds(50, 240, 100, 20);
 		// Define os input box
-		JTextField jTextId = new JTextField();
-		JTextField jTextNome = new JTextField();
-		JTextField jTextLocal = new JTextField();
-		JComboBox<Integer> dropdownVencedorId = new JComboBox<Integer>();
-		JTextField jTextVencedorNome = new JTextField();
-		JTextField jTextEquipeVencedora = new JTextField();
+		jTextId = new JTextField();
+		jTextNome = new JTextField();
+		jTextLocal = new JTextField();
+		dropdownVencedorId = new JComboBox<Integer>();
+		jTextVencedorNome = new JTextField();
+		jTextEquipeVencedora = new JTextField();
 		// Define se os campos estão habilitados ou não no início
 		jTextId.setEnabled(true);
 		jTextNome.setEnabled(false);
@@ -85,17 +96,17 @@ public class JanelaCorrida {
 		janelaCorrida.add(jTextVencedorNome);
 		janelaCorrida.add(jTextEquipeVencedora);
 		// Define botões e a localização deles na janela
-		JButton botaoConsultar = new JButton("Consultar");
+		botaoConsultar = new JButton("Consultar");
 		botaoConsultar.setBounds(230, 40, 100, 20);
 		janelaCorrida.add(botaoConsultar);
-		JButton botaoGravar = new JButton("Gravar");
+		botaoGravar = new JButton("Gravar");
 		botaoGravar.setBounds(50, 300, 100, 20);
 		botaoGravar.setEnabled(false);
 		janelaCorrida.add(botaoGravar);
-		JButton botaoLimpar = new JButton("Limpar");
+		botaoLimpar = new JButton("Limpar");
 		botaoLimpar.setBounds(350, 300, 100, 20);
 		janelaCorrida.add(botaoLimpar);
-		JButton botaoApagar = new JButton("Apagar");
+		botaoApagar = new JButton("Apagar");
 		botaoApagar.setBounds(200, 300, 100, 20);
 		botaoApagar.setEnabled(false);
 		janelaCorrida.add(botaoApagar);
@@ -110,7 +121,6 @@ public class JanelaCorrida {
 					botaoGravar.setEnabled(true);
 					String nome, local, vencedorNome = null, equipeNome = null;
 					int vencedorId;
-
 					if (!corrida.consultarCorrida(id)) {
 						JOptionPane.showMessageDialog(janelaCorrida, "Corrida não cadastrada.");
 						nome = "";
@@ -123,9 +133,7 @@ public class JanelaCorrida {
 						botaoApagar.setEnabled(false);
 						jTextNome.setEnabled(true);
 						jTextNome.requestFocus();
-
 					} else {
-						
 						Equipe equipe = new Equipe();
 						int equipeId;
 						nome = corrida.getNome();
@@ -138,14 +146,12 @@ public class JanelaCorrida {
 								equipeNome = equipe.getNome();
 							}
 						}
-
 						jTextId.setEnabled(false);
 						jTextLocal.setEnabled(false);
 						botaoApagar.setEnabled(true);
 						botaoGravar.setBounds(30, 300, 150, 20);
 						botaoGravar.setText("Atualizar vencedor");
 					}
-					
 					List<Integer> listaPilotos = new ArrayList<>();
 					for (Integer i : piloto.getPilotoIdList()) {
 						listaPilotos.add(i);
@@ -153,11 +159,9 @@ public class JanelaCorrida {
 					for (Integer item : listaPilotos) {
 						dropdownVencedorId.addItem(item);
 					}
-//					
 					dropdownVencedorId.getSelectedItem();
 					jTextNome.setText(nome);
 					jTextLocal.setText(local);
-					//jTextVencedorId.setText(Integer.toString(vencedorId));
 					jTextVencedorNome.setText(vencedorNome);
 					jTextEquipeVencedora.setText(equipeNome);
 					dropdownVencedorId.setEnabled(true);
@@ -171,62 +175,67 @@ public class JanelaCorrida {
 
 		botaoGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int resposta = JOptionPane.showConfirmDialog(janelaCorrida, "Deseja atualizar?", "Confirmação",
-						JOptionPane.YES_NO_OPTION);
-				if (resposta == JOptionPane.YES_OPTION) {
-					int id = Integer.parseInt(jTextId.getText());
-					String nome = jTextNome.getText().trim(); // Retira os espaços em branco
-					String local = jTextLocal.getText().trim(); // Retira os espaços em branco
-					int vencedorId = (int) (dropdownVencedorId.getSelectedItem());
-
-					if (nome.length() == 0) {
-						JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo nome");
-						jTextNome.requestFocus();
-					} else if (local.length() == 0) {
-						JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo local");
-						jTextLocal.requestFocus();
-
-					} else {
-						if (!corrida.consultarCorrida(id)) {
-							if (!corrida.cadastrarCorrida(id, nome, local, vencedorId)) {
-								JOptionPane.showMessageDialog(janelaCorrida, "Erro no cadastro da corrida!");
-							} else {
-								JOptionPane.showMessageDialog(janelaCorrida, "Cadastro realizado!");
-							}
+				try {
+					int resposta = JOptionPane.showConfirmDialog(janelaCorrida, "Deseja atualizar?", "Confirmação",
+							JOptionPane.YES_NO_OPTION);
+					if (resposta == JOptionPane.YES_OPTION) {
+						int id;
+						try {
+							id = Integer.parseInt(jTextId.getText());
+						} catch (NumberFormatException ex) {
+							JOptionPane.showMessageDialog(janelaCorrida, "ID inválido! Insira um número válido.");
+							return;
+						}
+						String nome = jTextNome.getText().trim(); // Retira os espaços em branco
+						String local = jTextLocal.getText().trim(); // Retira os espaços em branco
+						int vencedorId;
+						Object selectedItem = dropdownVencedorId.getSelectedItem();
+						if (selectedItem == null) {
+							JOptionPane.showMessageDialog(janelaCorrida,
+									"Não é possível cadastrar a corrida pois não há pilotos cadastrados!");
+							return;
 						} else {
-							if (!corrida.atualizarVencedor(id, vencedorId)) {
-								JOptionPane.showMessageDialog(janelaCorrida,
-										"Erro na atualização da corrida! O piloto vencedor precisa estar cadastrado!");
+							try {
+								vencedorId = (int) selectedItem;
+							} catch (ClassCastException ex) {
+								JOptionPane.showMessageDialog(janelaCorrida, "Erro ao obter o ID do piloto vencedor!");
+								return;
+							}
+						}
+						if (nome.length() == 0) {
+							JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo nome");
+							jTextNome.requestFocus();
+						} else if (local.length() == 0) {
+							JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo local");
+							jTextLocal.requestFocus();
+						} else {
+							if (!corrida.consultarCorrida(id)) {
+								if (!corrida.cadastrarCorrida(id, nome, local, vencedorId)) {
+									JOptionPane.showMessageDialog(janelaCorrida, "Erro no cadastro da corrida!");
+								} else {
+									JOptionPane.showMessageDialog(janelaCorrida, "Cadastro realizado!");
+								}
 							} else {
-								JOptionPane.showMessageDialog(janelaCorrida, "Atualização realizada!");
+								if (!corrida.atualizarVencedor(id, vencedorId)) {
+									JOptionPane.showMessageDialog(janelaCorrida,
+											"Erro na atualização da corrida! O piloto vencedor precisa estar cadastrado!");
+								} else {
+									JOptionPane.showMessageDialog(janelaCorrida, "Atualização realizada!");
+								}
 							}
 						}
 					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(janelaCorrida, "Erro inesperado: " + ex.getMessage());
+				} finally {
+					resetarJanela();
 				}
-				jTextId.setText(""); // Limpar campos
-				jTextNome.setText("");
-				jTextLocal.setText("");
-				dropdownVencedorId.removeAllItems();
-				jTextVencedorNome.setText("");
-				jTextEquipeVencedora.setText("");
-				jTextId.setEnabled(true);
-				jTextNome.setEnabled(false);
-				jTextLocal.setEnabled(false);
-				dropdownVencedorId.setEnabled(false);
-				botaoApagar.setEnabled(false);
-				botaoConsultar.setEnabled(true);
-				botaoGravar.setEnabled(false);
-				botaoLimpar.setEnabled(true);
-				jTextId.requestFocus(); // Colocar o foco em um campo
-				botaoGravar.setBounds(50, 300, 100, 20);
-				botaoGravar.setText("Gravar");
 			}
 		});
 
 		botaoApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(jTextId.getText());
-
 				// Verifica se a corrida existe
 				if (corrida.consultarCorrida(id)) {
 					int confirmacao = JOptionPane.showConfirmDialog(janelaCorrida, "Tem certeza?", "Apagar corrida",
@@ -235,23 +244,7 @@ public class JanelaCorrida {
 						// Apaga a corrida da tabela
 						corrida.apagarCorrida(id);
 						JOptionPane.showMessageDialog(janelaCorrida, "Corrida apagada da tabela!");
-
-						jTextId.setText("");
-						jTextNome.setText("");
-						jTextLocal.setText("");
-						dropdownVencedorId.removeAllItems();
-						jTextVencedorNome.setText("");
-						jTextEquipeVencedora.setText("");
-						jTextId.setEnabled(true);
-						jTextNome.setEnabled(false);
-						jTextLocal.setEnabled(false);
-						dropdownVencedorId.setEnabled(false);
-
-						botaoConsultar.setEnabled(true);
-						botaoGravar.setEnabled(false);
-						botaoApagar.setEnabled(false);
-						botaoGravar.setBounds(50, 300, 100, 20);
-						botaoGravar.setText("Gravar");
+						resetarJanela();
 					}
 				} else {
 					JOptionPane.showMessageDialog(janelaCorrida, "Corrida não encontrada na tabela!");
@@ -261,26 +254,30 @@ public class JanelaCorrida {
 
 		botaoLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jTextId.setText(""); // Limpar campos
-				jTextNome.setText("");
-				jTextLocal.setText("");
-				dropdownVencedorId.removeAllItems();
-				jTextVencedorNome.setText("");
-				jTextEquipeVencedora.setText("");
-				jTextId.setEnabled(true);
-				jTextNome.setEnabled(false);
-				jTextLocal.setEnabled(false);
-				dropdownVencedorId.setEnabled(false);
-				botaoConsultar.setEnabled(true);
-				botaoGravar.setEnabled(false);
-				botaoLimpar.setEnabled(true);
-				botaoApagar.setEnabled(false);
-				jTextId.requestFocus(); // Colocar o foco em um campo
-				botaoGravar.setBounds(50, 300, 100, 20);
-				botaoGravar.setText("Gravar");
+				resetarJanela();
 			}
 		});
 		return janelaCorrida;
+	}
 
+	// reseta a janela para as condições originais
+	public void resetarJanela() {
+		jTextId.setText(""); // Limpar campos
+		jTextNome.setText("");
+		jTextLocal.setText("");
+		dropdownVencedorId.removeAllItems();
+		jTextVencedorNome.setText("");
+		jTextEquipeVencedora.setText("");
+		jTextId.setEnabled(true);
+		jTextNome.setEnabled(false);
+		jTextLocal.setEnabled(false);
+		dropdownVencedorId.setEnabled(false);
+		botaoConsultar.setEnabled(true);
+		botaoGravar.setEnabled(false);
+		botaoLimpar.setEnabled(true);
+		botaoApagar.setEnabled(false);
+		jTextId.requestFocus(); // Colocar o foco em um campo
+		botaoGravar.setBounds(50, 300, 100, 20);
+		botaoGravar.setText("Gravar");
 	}
 }

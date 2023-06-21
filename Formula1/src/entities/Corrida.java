@@ -58,37 +58,6 @@ public class Corrida {
 		this.vencedor = voltas;
 	}
 
-//	public boolean cadastrarCorrida(Integer idCorrida) {
-//		Connection conexao = null;
-//		try {
-//			if (!consultarCorrida(idCorrida)) {
-//				conexao = Conexao.conectaBanco();
-//				// Define a consulta
-//				String sql = "insert into corrida set ID=?, Nome=?, Local=?, VencedorID=?;";
-//				// Prepara a consulta
-//				PreparedStatement ps = conexao.prepareStatement(sql);
-//				// Define os parâmetros da consulta
-//				ps.setInt(1, idCorrida);
-//				ps.setString(2, nome);
-//				ps.setString(3, local);
-//				ps.setInt(4, vencedor);
-//				int totalRegistrosAfetados = ps.executeUpdate();
-//				if (totalRegistrosAfetados == 0) {
-//					System.out.println("Não foi feito o cadastro!!");
-//					return false;
-//				}
-//				System.out.println("Cadastro realizado!");
-//			}
-//			return true;
-//
-//		} catch (SQLException erro) {
-//			System.out.println("Erro ao cadastrar o piloto: " + erro.toString());
-//			return false;
-//		} finally {
-//			Conexao.fechaConexao(conexao);
-//		}
-//	}
-
 	public boolean cadastrarCorrida(Integer idCorrida, String nome, String local, Integer vencedor) {
 		// Define a conexão
 		Connection conexao = null;
