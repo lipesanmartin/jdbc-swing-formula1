@@ -15,7 +15,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import entities.Equipe;
-import windows.table.TabelaNaoEditavel;
+import windows.customclasses.TabelaNaoEditavel;
 
 public class JanelaEquipe {
 	private JFrame janelaEquipe;

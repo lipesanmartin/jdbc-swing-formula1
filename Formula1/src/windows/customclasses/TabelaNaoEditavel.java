@@ -1,4 +1,4 @@
-package windows.table;
+package windows.customclasses;
 
 import javax.swing.table.DefaultTableModel;
 

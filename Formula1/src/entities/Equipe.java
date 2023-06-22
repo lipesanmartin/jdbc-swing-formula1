@@ -66,47 +66,13 @@ public class Equipe {
 		this.chefe = chefe;
 	}
 
-	public boolean cadastrarEquipe(Integer idEquipe) {
-		// Define a conexão
-		Connection conexao = null;
-		try {
-			conexao = Conexao.conectaBanco();
-			if (!consultarEquipe(idEquipe)) {
-				// Define a consulta
-				String sql = "insert into equipe set ID=?, Nome=?, País=?, Chefe=?;";
-				// Prepara a consulta
-				PreparedStatement ps = conexao.prepareStatement(sql);
-				// Define os parâmetros da consulta
-				ps.setInt(1, idEquipe);
-				ps.setString(2, nome);
-				ps.setString(3, nacionalidade);
-				ps.setString(4, chefe);
-				int totalRegistrosAfetados = ps.executeUpdate();
-				if (totalRegistrosAfetados == 0) {
-					System.out.println("Não foi feito o cadastro!!");
-					return false;
-				}
-				System.out.println("Cadastro realizado!");
-				return true;
-			} else {
-				System.out.println("ID de Equipe já cadastrada");
-				return true;
-			}
-		} catch (SQLException erro) {
-			System.out.println("Erro ao cadastrar a equipe: " + erro.toString());
-			return false;
-		} finally {
-			Conexao.fechaConexao(conexao);
-		}
-	}
-
 	public boolean cadastrarEquipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "insert into equipe set ID=?, Nome=?, País=?, Chefe=?;";
+			String sql = "insert into equipe set ID=?, Nome=?, Nacionalidade=?, Chefe=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
@@ -147,6 +113,36 @@ public class Equipe {
 				// Efetua a leitura do registro da tabela
 				while (rs.next()) {
 					lista.add(rs.getInt("ID"));
+
+				}
+				return lista;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return lista;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+
+	public List<String> getAllNamesById() {
+		Connection conexao = null;
+		List<String> lista = new ArrayList<>();
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select nome from equipe order by ID;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há equipes cadastradas!");
+				return lista; // Equipe não cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					lista.add(rs.getString("nome"));
 
 				}
 				return lista;
@@ -216,7 +212,7 @@ public class Equipe {
 				while (rs.next()) {
 					this.idEquipe = rs.getInt("ID");
 					this.nome = rs.getString("Nome");
-					this.nacionalidade = rs.getString("País");
+					this.nacionalidade = rs.getString("Nacionalidade");
 					this.chefe = rs.getString("Chefe");
 				}
 				return true;
@@ -229,7 +225,7 @@ public class Equipe {
 		}
 	}
 
-	public boolean atualizarEquipe(Integer idEquipe, String nome, String pais, String chefe) {
+	public boolean atualizarEquipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
 		else {
@@ -239,12 +235,12 @@ public class Equipe {
 				// Define a conex�o
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update equipe set Nome=?, País=?, Chefe=? where ID=?";
+				String sql = "update equipe set Nome=?, Nacionalidade=?, Chefe=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
 				ps.setString(1, nome);
-				ps.setString(2, pais);
+				ps.setString(2, nacionalidade);
 				ps.setString(3, chefe);
 				ps.setInt(4, idEquipe);
 				int totalRegistrosAfetados = ps.executeUpdate();
@@ -289,6 +285,42 @@ public class Equipe {
 			} finally {
 				Conexao.fechaConexao(conexao);
 			}
+		}
+	}
+
+	public Object[][] getDataFromTable() {
+		Connection conexao = null;
+		List<Object[]> lista = new ArrayList<>();
+
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select * from equipe order by ID;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há pilotos cadastrados!");
+				return new Object[0][0]; // Nenhum piloto cadastrado
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					Object[] pilotoInfo = new Object[6];
+					pilotoInfo[0] = rs.getInt("ID");
+					pilotoInfo[1] = rs.getString("Nome");
+					pilotoInfo[2] = rs.getString("Nacionalidade");
+					pilotoInfo[3] = rs.getString("Chefe");
+					lista.add(pilotoInfo);
+				}
+				return lista.toArray(new Object[0][0]);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return new Object[0][0];
+		} finally {
+			Conexao.fechaConexao(conexao);
 		}
 	}
 }
