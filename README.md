@@ -1,4 +1,4 @@
-# jdbc-swing-formula1
+# Atualização e Consulta de Tabelas SQL em interface gráfica 
 
 Projeto em Java utilizando Swing e JDBC.
 Simula um programa para atualizar um banco de dados de uma competição automobilística, como a Formula 1.
