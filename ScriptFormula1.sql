@@ -23,12 +23,10 @@ CREATE TABLE Corrida (
   Nome VARCHAR(255) NOT NULL,
   Circuito VARCHAR(255) NOT NULL,
   VencedorID INT,
-  EquipeVencedoraID INT,
   FOREIGN KEY (VencedorID) REFERENCES Piloto(ID)
-  FOREIGN KEY (EquipeVencedoraID) REFERENCES Equipe(ID)
 );
 
-INSERT INTO `equipe` VALUES
+INSERT INTO `equipe` VALUES 
 (1,'Alfa Romeo','Suíça','Alessandro Bravi'),
 (2,'AlphaTauri','Italia','Franz Tost'),
 (3,'Alpine','França','Otmar Szafnauer'),
@@ -40,7 +38,7 @@ INSERT INTO `equipe` VALUES
 (9,'Red Bull Racing','Áustria','Christian Horner'),
 (10,'Williams','Reino Unido','James Vowles');
 
-INSERT INTO `piloto` VALUES
+INSERT INTO `piloto` VALUES 
 (1,'Max Verstappen','Holanda',1,9),
 (2,'Sergio Perez','México',12,9),
 (3,'Lewis Hamilton','Reino Unido',44,7),
