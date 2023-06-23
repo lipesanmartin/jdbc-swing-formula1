@@ -33,7 +33,6 @@ public class JanelaConsultaCorridas {
 		botaoAtualizar.setBounds(300, 280, 100, 20);
 		botaoAtualizar.setEnabled(true);
 		janelaConsultaCorridas.add(botaoAtualizar);
-		
 		botaoAtualizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
