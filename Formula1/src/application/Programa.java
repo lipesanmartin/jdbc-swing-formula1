@@ -4,6 +4,7 @@ import windows.JanelaPrincipal;
 
 public class Programa {
 	public static void main(String[] args) {
-		JanelaPrincipal.apresentarMenu();
+		JanelaPrincipal programa = new JanelaPrincipal();
+		programa.apresentarMenu();
 	}
 }
