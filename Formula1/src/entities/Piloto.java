@@ -63,6 +63,38 @@ public class Piloto {
 	public Integer getNumCarro() {
 		return numCarro;
 	}
+	
+	public Integer getNumCarroById(Integer idPiloto) {
+		// Define a conexão
+				Connection conexao = null;
+				try {
+					conexao = Conexao.conectaBanco();
+					// Define a consulta
+					String sql = "select NumeroCarro from piloto where ID=?";
+					// Prepara a consulta
+					PreparedStatement ps = conexao.prepareStatement(sql);
+					// Define os parâmetros da consulta
+					ps.setInt(1, idPiloto);
+					// Executa a consulta, resultando em um objeto da classe ResultSet
+					ResultSet rs = ps.executeQuery();
+					if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+						System.out.println("Piloto não cadastrado!");
+						return -1; // Piloto não cadastrado
+					} else {
+						// Efetua a leitura do registro da tabela
+						while (rs.next()) {
+							this.numCarro = rs.getInt("NumeroCarro");
+						}
+						return numCarro;
+					}
+				} catch (SQLException erro) {
+					System.out.println("Erro ao consultar o piloto: " + erro.toString());
+					return -1;
+				} finally {
+					Conexao.fechaConexao(conexao);
+				}
+			}
+	
 
 	public void setNumCarro(Integer numCarro) {
 		this.numCarro = numCarro;
@@ -228,7 +260,7 @@ public class Piloto {
 					System.out.println("Atualização realizada!");
 				return true;
 			} catch (SQLException erro) {
-				System.out.println("Erro ao atualizar numero do carro: " + erro.toString());
+				System.out.println("Erro ao atualizar piloto: " + erro.toString());
 				return false;
 			} finally {
 				Conexao.fechaConexao(conexao);

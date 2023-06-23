@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.Conexao;
 
@@ -11,17 +13,17 @@ public class Corrida {
 
 	private Integer idCorrida;
 	private String nome;
-	private String local;
+	private String circuito;
 	private Integer vencedor;
 
 	public Corrida() {
 
 	}
 
-	public Corrida(Integer idCorrida, String nome, String local, Integer vencedor) {
+	public Corrida(Integer idCorrida, String nome, String circuito, Integer vencedor) {
 		this.idCorrida = idCorrida;
 		this.nome = nome;
-		this.local = local;
+		this.circuito = circuito;
 		this.vencedor = vencedor;
 
 	}
@@ -42,12 +44,12 @@ public class Corrida {
 		this.nome = nome;
 	}
 
-	public String getLocal() {
-		return local;
+	public String getCircuito() {
+		return circuito;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
+	public void setCircuito(String circuito) {
+		this.circuito = circuito;
 	}
 
 	public Integer getVencedor() {
@@ -58,7 +60,7 @@ public class Corrida {
 		this.vencedor = voltas;
 	}
 
-	public boolean cadastrarCorrida(Integer idCorrida, String nome, String local, Integer vencedor) {
+	public boolean cadastrarCorrida(Integer idCorrida, String nome, String circuito, Integer vencedor) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
@@ -70,13 +72,13 @@ public class Corrida {
 				return false;
 			}
 			// Define a consulta
-			String sql = "insert into corrida set ID=?, Nome=?, Local=?, VencedorID=?";
+			String sql = "insert into corrida set ID=?, Nome=?, circuito=?, VencedorID=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
 			ps.setInt(1, idCorrida);
 			ps.setString(2, nome);
-			ps.setString(3, local);
+			ps.setString(3, circuito);
 			ps.setInt(4, vencedor);
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
@@ -114,7 +116,7 @@ public class Corrida {
 				while (rs.next()) {
 					this.idCorrida = rs.getInt("ID");
 					this.nome = rs.getString("Nome");
-					this.local = rs.getString("Local");
+					this.circuito = rs.getString("Circuito");
 					this.vencedor = rs.getInt("VencedorID");
 				}
 				return true;
@@ -185,6 +187,46 @@ public class Corrida {
 			} finally {
 				Conexao.fechaConexao(conexao);
 			}
+		}
+	}
+	
+	public Object[][] getDataFromTable() {
+		Connection conexao = null;
+		List<Object[]> lista = new ArrayList<>();
+
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select c.id, c.nome, c.circuito, p.nome, e.Nome \n"
+					+ "from corrida c \n"
+					+ "join piloto p on c.VencedorID = p.ID\n"
+					+ "join equipe e on e.ID = p.EquipeID;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há corridas cadastradas!");
+				return new Object[0][0]; // Nenhum piloto cadastrado
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					Object[] pilotoInfo = new Object[6];
+					pilotoInfo[0] = rs.getInt("c.ID");
+					pilotoInfo[1] = rs.getString("c.Nome");
+					pilotoInfo[2] = rs.getString("c.circuito");
+					pilotoInfo[3] = rs.getString("p.Nome");
+					pilotoInfo[4] = rs.getString("e.Nome");
+					lista.add(pilotoInfo);
+				}
+				return lista.toArray(new Object[0][0]);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return new Object[0][0];
+		} finally {
+			Conexao.fechaConexao(conexao);
 		}
 	}
 }

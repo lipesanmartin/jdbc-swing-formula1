@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
 import javax.swing.WindowConstants;
 
 public class JanelaPrincipal {
@@ -52,6 +51,8 @@ public class JanelaPrincipal {
 		JFrame dadosPilotos = consultaPilotos.criarJanela();
 		JanelaConsultaEquipes consultaEquipes = new JanelaConsultaEquipes();
 		JFrame dadosEquipes = consultaEquipes.criarJanela();
+		JanelaConsultaCorridas consultaCorridas = new JanelaConsultaCorridas();
+		JFrame dadosCorridas = consultaCorridas.criarJanela();
 		// adiciona ação para os itens de menu
 		menuPiloto.addActionListener(new ActionListener() {
 			@Override
@@ -82,6 +83,13 @@ public class JanelaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dadosEquipes.setVisible(true);
+			}
+		});
+		
+		tabelaCorridas.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dadosCorridas.setVisible(true);
 			}
 		});
 		

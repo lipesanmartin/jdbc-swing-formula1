@@ -28,7 +28,7 @@ public class JanelaConsultaEquipes {
 		janelaConsultaEquipes.setLocationRelativeTo(null);
 		Container caixa = janelaConsultaEquipes.getContentPane();
 		caixa.setLayout(null);
-		atualizarTabela();
+		atualizarTabelaEquipes();
 		botaoAtualizar = new JButton("Atualizar");
 		botaoAtualizar.setBounds(300, 280, 100, 20);
 		botaoAtualizar.setEnabled(true);
@@ -37,7 +37,7 @@ public class JanelaConsultaEquipes {
 		botaoAtualizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				atualizarTabela();
+				atualizarTabelaEquipes();
 			}
 		});
 		
@@ -59,7 +59,7 @@ public class JanelaConsultaEquipes {
 	    }
 	}
 	
-	public static void atualizarTabela() {
+	public static void atualizarTabelaEquipes() {
 		tableModel = new TabelaNaoEditavel();
 		tabela = new JTable(tableModel);
 		tabela.setRowSelectionAllowed(false);

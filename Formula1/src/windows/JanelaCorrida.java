@@ -23,7 +23,7 @@ public class JanelaCorrida {
 	private JFrame janelaCorrida;
 	private JTextField jTextId;
 	private JTextField jTextNome;
-	private JTextField jTextLocal;
+	private JTextField jTextCircuito;
 	JComboBox<Integer> dropdownVencedorId;
 	JTextField jTextVencedorNome;
 	JTextField jTextEquipeVencedora;
@@ -45,53 +45,53 @@ public class JanelaCorrida {
 		// Define os labels dos campos
 		JLabel labelId = new JLabel("ID: ");
 		JLabel labelNome = new JLabel("Nome: ");
-		JLabel labelLocal = new JLabel("Local: ");
+		JLabel labelCircuito = new JLabel("Circuito: ");
 		JLabel labelVencedorId = new JLabel("Vencedor ID: ");
 		JLabel labelVencedorNome = new JLabel("Vencedor: ");
 		JLabel labelEquipeVencedora = new JLabel("Equipe: ");
 		// Posiciona os labels na janela
 		labelId.setBounds(50, 40, 100, 20); // coluna, linha, largura, tamanho
 		labelNome.setBounds(50, 80, 100, 20);
-		labelLocal.setBounds(50, 120, 100, 20);
+		labelCircuito.setBounds(50, 120, 100, 20);
 		labelVencedorId.setBounds(50, 160, 100, 20);
 		labelVencedorNome.setBounds(50, 200, 100, 20);
 		labelEquipeVencedora.setBounds(50, 240, 100, 20);
 		// Define os input box
 		jTextId = new JTextField();
 		jTextNome = new JTextField();
-		jTextLocal = new JTextField();
+		jTextCircuito = new JTextField();
 		dropdownVencedorId = new JComboBox<Integer>();
 		jTextVencedorNome = new JTextField();
 		jTextEquipeVencedora = new JTextField();
 		// Define se os campos estão habilitados ou não no início
 		jTextId.setEnabled(true);
 		jTextNome.setEnabled(false);
-		jTextLocal.setEnabled(false);
+		jTextCircuito.setEnabled(false);
 		dropdownVencedorId.setEnabled(false);
 		jTextVencedorNome.setEnabled(false);
 		jTextEquipeVencedora.setEnabled(false);
 		// Posiciona os input box
 		jTextId.setBounds(180, 40, 50, 20);
 		jTextNome.setBounds(180, 80, 150, 20);
-		jTextLocal.setBounds(180, 120, 150, 20);
+		jTextCircuito.setBounds(180, 120, 150, 20);
 		dropdownVencedorId.setBounds(180, 160, 50, 20);
 		jTextVencedorNome.setBounds(180, 200, 150, 20);
 		jTextEquipeVencedora.setBounds(180, 240, 150, 20);
 		jTextId.setDisabledTextColor(Color.DARK_GRAY);
 		jTextNome.setDisabledTextColor(Color.DARK_GRAY);
-		jTextLocal.setDisabledTextColor(Color.DARK_GRAY);
+		jTextCircuito.setDisabledTextColor(Color.DARK_GRAY);
 		jTextVencedorNome.setDisabledTextColor(Color.DARK_GRAY);
 		jTextEquipeVencedora.setDisabledTextColor(Color.DARK_GRAY);
 		// Adiciona os rótulos e os input box na janela
 		janelaCorrida.add(labelId);
 		janelaCorrida.add(labelNome);
-		janelaCorrida.add(labelLocal);
+		janelaCorrida.add(labelCircuito);
 		janelaCorrida.add(labelVencedorId);
 		janelaCorrida.add(labelVencedorNome);
 		janelaCorrida.add(labelEquipeVencedora);
 		janelaCorrida.add(jTextId);
 		janelaCorrida.add(jTextNome);
-		janelaCorrida.add(jTextLocal);
+		janelaCorrida.add(jTextCircuito);
 		janelaCorrida.add(dropdownVencedorId);
 		janelaCorrida.add(jTextVencedorNome);
 		janelaCorrida.add(jTextEquipeVencedora);
@@ -119,17 +119,17 @@ public class JanelaCorrida {
 					Piloto piloto = new Piloto();
 					int id = Integer.parseInt(jTextId.getText());
 					botaoGravar.setEnabled(true);
-					String nome, local, vencedorNome = null, equipeNome = null;
+					String nome, circuito, vencedorNome = null, equipeNome = null;
 					int vencedorId;
 					if (!corrida.consultarCorrida(id)) {
 						JOptionPane.showMessageDialog(janelaCorrida, "Corrida não cadastrada.");
 						nome = "";
-						local = "";
+						circuito = "";
 						vencedorId = 0;
 						vencedorNome = "";
 						equipeNome = "";
 						jTextId.setEnabled(false);
-						jTextLocal.setEnabled(true);
+						jTextCircuito.setEnabled(true);
 						botaoApagar.setEnabled(false);
 						jTextNome.setEnabled(true);
 						jTextNome.requestFocus();
@@ -137,7 +137,7 @@ public class JanelaCorrida {
 						Equipe equipe = new Equipe();
 						int equipeId;
 						nome = corrida.getNome();
-						local = corrida.getLocal();
+						circuito = corrida.getCircuito();
 						vencedorId = corrida.getVencedor();
 						if (piloto.consultarPiloto(vencedorId)) {
 							vencedorNome = piloto.getNome();
@@ -147,7 +147,7 @@ public class JanelaCorrida {
 							}
 						}
 						jTextId.setEnabled(false);
-						jTextLocal.setEnabled(false);
+						jTextCircuito.setEnabled(false);
 						botaoApagar.setEnabled(true);
 						botaoGravar.setBounds(30, 300, 150, 20);
 						botaoGravar.setText("Atualizar vencedor");
@@ -161,7 +161,7 @@ public class JanelaCorrida {
 					}
 					dropdownVencedorId.getSelectedItem();
 					jTextNome.setText(nome);
-					jTextLocal.setText(local);
+					jTextCircuito.setText(circuito);
 					jTextVencedorNome.setText(vencedorNome);
 					jTextEquipeVencedora.setText(equipeNome);
 					dropdownVencedorId.setEnabled(true);
@@ -187,7 +187,7 @@ public class JanelaCorrida {
 							return;
 						}
 						String nome = jTextNome.getText().trim(); // Retira os espaços em branco
-						String local = jTextLocal.getText().trim(); // Retira os espaços em branco
+						String circuito = jTextCircuito.getText().trim(); // Retira os espaços em branco
 						int vencedorId;
 						Object selectedItem = dropdownVencedorId.getSelectedItem();
 						if (selectedItem == null) {
@@ -205,12 +205,12 @@ public class JanelaCorrida {
 						if (nome.length() == 0) {
 							JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo nome");
 							jTextNome.requestFocus();
-						} else if (local.length() == 0) {
-							JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo local");
-							jTextLocal.requestFocus();
+						} else if (circuito.length() == 0) {
+							JOptionPane.showMessageDialog(janelaCorrida, "Preencha o campo circuito");
+							jTextCircuito.requestFocus();
 						} else {
 							if (!corrida.consultarCorrida(id)) {
-								if (!corrida.cadastrarCorrida(id, nome, local, vencedorId)) {
+								if (!corrida.cadastrarCorrida(id, nome, circuito, vencedorId)) {
 									JOptionPane.showMessageDialog(janelaCorrida, "Erro no cadastro da corrida!");
 								} else {
 									JOptionPane.showMessageDialog(janelaCorrida, "Cadastro realizado!");
@@ -264,13 +264,13 @@ public class JanelaCorrida {
 	public void resetarJanela() {
 		jTextId.setText(""); // Limpar campos
 		jTextNome.setText("");
-		jTextLocal.setText("");
+		jTextCircuito.setText("");
 		dropdownVencedorId.removeAllItems();
 		jTextVencedorNome.setText("");
 		jTextEquipeVencedora.setText("");
 		jTextId.setEnabled(true);
 		jTextNome.setEnabled(false);
-		jTextLocal.setEnabled(false);
+		jTextCircuito.setEnabled(false);
 		dropdownVencedorId.setEnabled(false);
 		botaoConsultar.setEnabled(true);
 		botaoGravar.setEnabled(false);

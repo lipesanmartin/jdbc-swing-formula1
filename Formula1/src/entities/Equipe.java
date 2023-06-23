@@ -95,6 +95,35 @@ public class Equipe {
 		}
 	}
 
+	public Integer getIdByName(String nome) {
+		Connection conexao = null;
+		int id = -1;
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select ID from equipe where nome=?;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ps.setString(1, nome);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há equipes cadastradas!");
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					id = rs.getInt("ID");
+
+				}
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+		return id;
+	}
+	
 	public List<Integer> getEquipeIdList() {
 		Connection conexao = null;
 		List<Integer> lista = new ArrayList<>();
@@ -113,6 +142,36 @@ public class Equipe {
 				// Efetua a leitura do registro da tabela
 				while (rs.next()) {
 					lista.add(rs.getInt("ID"));
+
+				}
+				return lista;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar a equipe: " + erro.toString());
+			return lista;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+	
+	public List<String> getEquipeNameList() {
+		Connection conexao = null;
+		List<String> lista = new ArrayList<>();
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select nome from equipe order by ID;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há equipes cadastradas!");
+				return lista; // Equipe não cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					lista.add(rs.getString("nome"));
 
 				}
 				return lista;

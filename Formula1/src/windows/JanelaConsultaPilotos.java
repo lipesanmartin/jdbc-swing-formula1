@@ -28,7 +28,7 @@ public class JanelaConsultaPilotos {
 		janelaConsultaPilotos.setLocationRelativeTo(null);
 		Container caixa = janelaConsultaPilotos.getContentPane();
 		caixa.setLayout(null);
-		atualizarTabela();
+		atualizarTabelaPilotos();
 		botaoAtualizar = new JButton("Atualizar");
 		botaoAtualizar.setBounds(310, 325, 100, 20);
 		botaoAtualizar.setEnabled(true);
@@ -37,7 +37,7 @@ public class JanelaConsultaPilotos {
 		botaoAtualizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				atualizarTabela();
+				atualizarTabelaPilotos();
 			}
 		});
 
@@ -57,7 +57,7 @@ public class JanelaConsultaPilotos {
 	}
 
 	// cria e atualiza a tabela
-	public static void atualizarTabela() {
+	public static void atualizarTabelaPilotos() {
 		tableModel = new TabelaNaoEditavel();
 		tabela = new JTable(tableModel);
 		tabela.setRowSelectionAllowed(false);
