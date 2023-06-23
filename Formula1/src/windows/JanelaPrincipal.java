@@ -28,10 +28,10 @@ public class JanelaPrincipal {
 		// adiciona a barra de menu ao frame
 		janelaPrincipal.setJMenuBar(menuBar);
 		// define e adiciona menu na barra de menu
-		JMenu menuAtualizar = new JMenu("Atualizar");
-		menuBar.add(menuAtualizar);
 		JMenu menuConsultar = new JMenu("Consultar");
 		menuBar.add(menuConsultar);
+		JMenu menuAtualizar = new JMenu("Atualizar");
+		menuBar.add(menuAtualizar);
 		// cria e adiciona os itens
 		JMenuItem menuEquipe = new JMenuItem("Equipe");
 		menuAtualizar.add(menuEquipe);
