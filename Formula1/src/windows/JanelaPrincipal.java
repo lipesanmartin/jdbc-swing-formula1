@@ -20,7 +20,6 @@ public class JanelaPrincipal {
 	public void apresentarMenu() {
 		// define a janela
 		JFrame janelaPrincipal = new JFrame("Administração F1");
-		janelaPrincipal.setTitle("Seleção de categoria");
 		janelaPrincipal.setResizable(false);
 		janelaPrincipal.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		janelaPrincipal.getContentPane().setBackground(Color.DARK_GRAY);
