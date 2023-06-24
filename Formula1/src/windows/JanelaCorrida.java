@@ -18,7 +18,9 @@ import javax.swing.WindowConstants;
 import entities.Corrida;
 import entities.Equipe;
 import entities.Piloto;
-
+/**
+ * Classe que representa a janela de atualização de corrida.
+ */
 public class JanelaCorrida {
 	private JFrame janelaCorrida;
 	private JTextField jTextId;
@@ -32,7 +34,11 @@ public class JanelaCorrida {
 	private JButton botaoLimpar;
 	private JButton botaoApagar;
 	private JButton botaoAtualizarPiloto;
-
+    /**
+     * Cria a janela de corrida.
+     *
+     * @return O objeto JFrame da janela de corrida criada.
+     */
 	public JFrame criarJanelaCorrida() {
 		// Define a janela
 		janelaCorrida = new JFrame("Atualização de corrida"); // Janela Normal
@@ -119,6 +125,19 @@ public class JanelaCorrida {
 		// Define objeto corrida para pesquisar no banco de dados
 		Corrida corrida = new Corrida();
 		// Define ações dos botões
+		/**
+		 * Adiciona um ouvinte de ação ao botão "Consultar" que será acionado quando o botão for clicado.
+		 * Ao ser acionado, o método actionPerformed executa as ações necessárias para consultar os dados da corrida.
+		 * Ele obtém o ID da corrida fornecido pelo campo de texto "jTextId" e realiza a consulta na tabela.
+		 * Se a corrida existir na tabela, preenche os campos da janela com as informações encontradas.
+		 * Caso contrário, exibe uma mensagem informando que a corrida não está cadastrada e cria a janela zerada
+		 * para permitir o cadastro de uma nova corrida.
+		 * O método também habilita/desabilita os componentes da janela conforme necessário, como a habilitação do
+		 * botão "Gravar", habilitação do campo de texto "jTextNome", desabilitação do campo de texto "jTextCircuito",
+		 * habilitação do botão "Apagar", habilitação/desabilitação do botão "Atualizar Piloto", entre outros.
+		 * Por fim, o método desabilita o botão "Consultar" para evitar consultas repetidas.
+		 * Em caso de erros durante o processo, exibe uma mensagem de erro apropriada.
+		 */
 		botaoConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -177,7 +196,14 @@ public class JanelaCorrida {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ouvinte de ação ao botão "Gravar" que será acionado quando o botão for clicado.
+		 * Ao ser acionado, o método actionPerformed executa as ações necessárias para gravar os dados da corrida.
+		 * Ele exibe uma caixa de diálogo de confirmação e, se confirmado, realiza as validações dos campos e
+		 * realiza o cadastro ou atualização da corrida na tabela, com base nas informações fornecidas.
+		 * Se ocorrerem erros durante o processo, exibe mensagens de erro apropriadas.
+		 * Por fim, o método reseta a janela e redefine a visibilidade do componente "labelVencedorNome".
+		 */
 		botaoGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -240,7 +266,12 @@ public class JanelaCorrida {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ouvinte de ação ao botão "Apagar" que será acionado quando o botão for clicado.
+		 * Ao ser acionado, o método actionPerformed executa as ações necessárias para apagar uma corrida da tabela,
+		 * verificando se a corrida existe, exibindo uma mensagem de confirmação e apagando a corrida se confirmado.
+		 * Se a corrida não for encontrada na tabela, exibe uma mensagem informando.
+		 */
 		botaoApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(jTextId.getText());
@@ -260,14 +291,31 @@ public class JanelaCorrida {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ActionListener ao botão "Limpar".
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa as seguintes ações:
+		 * Chama o método "resetarJanela()" para redefinir a janela.
+		 * Torna visível o rótulo "labelVencedorNome".
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 * @return O objeto da janela "janelaCorrida".
+		 */
 		botaoLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetarJanela();
 				labelVencedorNome.setVisible(true);
 			}
 		});
-		
+		/**
+		 * Adiciona um ActionListener ao botão "Atualizar Piloto".
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa a seguinte ação:
+		 * Ativa o combobox chamando o método "ativarCombobox()".
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 * @return O objeto da janela "janelaCorrida".
+		 */
 		botaoAtualizarPiloto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ativarCombobox();
@@ -275,8 +323,12 @@ public class JanelaCorrida {
 		});
 		return janelaCorrida;
 	}
-
-	// reseta a janela para as condições originais
+	/**
+	 * Reseta a janela para as condições originais.
+	 * Reseta a janela do formulário, restaurando os valores padrão e habilitando/desabilitando os componentes apropriados.
+	 * Limpa os campos de texto, remove todos os itens do combobox, desabilita os campos e botões desnecessários,
+	 * habilita os campos e botões necessários, define o foco em um campo específico e redefine o posicionamento e texto do botão "Gravar".
+	 */
 	public void resetarJanela() {
 		jTextId.setText(""); // Limpar campos
 		jTextNome.setText("");
@@ -298,7 +350,11 @@ public class JanelaCorrida {
 		botaoGravar.setBounds(50, 300, 100, 20);
 		botaoGravar.setText("Gravar");
 	}
-	
+	/**
+	 * Ativa o combobox de seleção do vencedor da corrida.
+	 * Remove todos os itens existentes no combobox e preenche com a lista de nomes de equipes disponíveis.
+	 * Habilita a interação com o combobox.
+	 */
 	public void ativarCombobox() {
 		comboboxVencedor.removeAllItems();
 		List<String> listaEquipes = new ArrayList<>();

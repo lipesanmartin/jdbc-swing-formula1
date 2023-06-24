@@ -19,6 +19,9 @@ import javax.swing.WindowConstants;
 import entities.Equipe;
 import entities.Piloto;
 
+/**
+ * Classe responsável por criar a janela de atualização de pilotos.
+ */
 public class JanelaPiloto {
 	private JFrame janelaPiloto;
 	private JTextField jTextId;
@@ -37,7 +40,11 @@ public class JanelaPiloto {
 	private JLabel labelNumero;
 	private JLabel labelNomeEquipe;
 
-
+    /**
+     * Método responsável por criar e configurar a janela de pilotos.
+     *
+     * @return A janela de pilotos criada.
+     */
 	public JFrame criarJanelaPiloto() {
 		// Define a janela
 		janelaPiloto = new JFrame("Atualização de piloto"); // Janela Normal
@@ -120,7 +127,20 @@ public class JanelaPiloto {
 		// Define objeto piloto para pesquisar no banco de dados
 		Piloto piloto = new Piloto();
 
-		// Define ações dos botões
+		/**
+		 * Define ações dos botões
+		 * Adiciona um ActionListener ao botão "Consultar".
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa ações para consultar e exibir os dados de um piloto:
+		 * Obtém o ID do piloto do campo de texto "jTextId".
+		 * Habilita o botão "Gravar".
+		 * Realiza a consulta do piloto:
+		 *  - Se o piloto não estiver cadastrado, prepara a janela para receber os dados do novo piloto.
+		 *  - Se o piloto estiver cadastrado, exibe os atributos do piloto na tela.
+		 * Habilita e configura os campos e botões conforme o resultado da consulta.
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 */
 		botaoConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -176,7 +196,23 @@ public class JanelaPiloto {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ActionListener ao botão Gravar.
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa ações para validar e gravar os dados do piloto:
+		 * Exibe uma caixa de diálogo de confirmação.
+		 * Valida os campos de entrada:
+		 *   - Verifica se os campos "jTextId" e "jTextNumero" contêm valores numéricos válidos.
+		 *   - Verifica se o número de carro já está cadastrado para outro piloto.
+		 *   - Verifica se uma equipe está selecionada no combobox "jComboboxIdEquipe".
+		 *   - Realiza validações adicionais nos campos "jTextNome" e "jTextNacionalidade".
+		 * Realiza a gravação dos dados:
+		 *   - Se o piloto não existir, realiza o cadastro do piloto.
+		 *   - Se o piloto já existir, realiza a atualização dos dados do piloto.
+		 * Exibe mensagens de sucesso ou erro conforme o resultado da gravação.
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 */
 		botaoGravar.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        try {
@@ -241,10 +277,22 @@ public class JanelaPiloto {
 		        }
 		    }
 		});
-
-
-
-
+		/**
+		 * Adiciona um ActionListener ao botão Apagar.
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa as seguintes ações:
+		 * Obtém o valor numérico do campo de texto "jTextId" e o converte em um inteiro.
+		 * Verifica se o piloto com o ID informado existe.
+		 * Se o piloto existir, exibe uma caixa de diálogo de confirmação.
+		 * Se a confirmação for positiva, realiza as seguintes ações:
+		 *   - Apaga o piloto da tabela.
+		 *   - Se o piloto não puder ser apagado por estar cadastrado como vencedor de uma corrida, exibe uma mensagem de aviso.
+		 *   - Caso contrário, exibe uma mensagem de sucesso informando que o piloto foi apagado da tabela.
+		 *   - Chama o método "resetJanela()" para redefinir a janela.
+		 * Se o piloto não for encontrado na tabela, exibe uma mensagem informando que o piloto não foi encontrado.
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 */
 		botaoApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(jTextId.getText());
@@ -268,13 +316,32 @@ public class JanelaPiloto {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ActionListener ao botão Limpar.
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa a seguinte ação:
+		 * Chama o método "resetJanela()" para redefinir a janela.
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 */
 		botaoLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetJanela();
 			}
 		});
-
+		/**
+		 * Adiciona um ActionListener ao botão Atualizar Equipe.
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa as seguintes ações:
+		 * Obtém o valor numérico do campo de texto "jTextId" e o converte em um inteiro.
+		 * Cria uma nova instância da classe "Piloto".
+		 * Consulta o piloto usando o ID obtido e verifica se a consulta foi bem-sucedida.
+		 * Remove todos os itens do combobox "jComboboxIdEquipe" e habilita sua funcionalidade.
+		 * Ativa o combobox chamando o método "ativarCombobox()".
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 * @return O objeto da janela "janelaPiloto".
+		 */
 		botaoAtualizarEquipe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(jTextId.getText());
@@ -290,7 +357,9 @@ public class JanelaPiloto {
 		return janelaPiloto;
 	}
 
-	// reseta a janela para as condições originais
+	/**
+	 * Reseta a janela para as condições originais
+	 */
 	public void resetJanela() {
 		jTextId.setText(""); // Limpar campo
 		jTextNome.setText(""); // Limpar campo
@@ -315,8 +384,12 @@ public class JanelaPiloto {
 		jComboboxIdEquipe.removeAllItems();
 	}
 
-	// cria o combo box para que o piloto só possa ser cadastrado em equipes
-	// existentes.
+	/**
+	 * Cria o combo box para que o piloto só possa ser cadastrado em equipes existentes.
+	 * Ativa o JComboBox das equipes preenchendo-o com a lista de nomes das equipes disponíveis.
+	 * Para isso, o método obtém a lista de nomes das equipes utilizando o método getNameList() da classe Equipe,
+	 * e adiciona cada nome à lista de equipes. Em seguida, adiciona cada item da lista de equipes ao JComboBox jComboboxIdEquipe.
+	 */
 	public void ativarCombobox() {
 		List<String> listaEquipes = new ArrayList<>();
 		Equipe equipe = new Equipe();

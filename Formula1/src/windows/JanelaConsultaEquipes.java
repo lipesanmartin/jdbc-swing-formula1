@@ -13,13 +13,19 @@ import javax.swing.table.TableColumn;
 
 import entities.Equipe;
 import windows.customclasses.TabelaNaoEditavel;
-
+/**
+ * Classe responsável por criar uma janela de consulta de equipes.
+ */
 public class JanelaConsultaEquipes {
 	private static JFrame janelaConsultaEquipes;
 	private static TabelaNaoEditavel tableModel;
 	private static JTable tabela;
 	private JButton botaoAtualizar;
-
+    /**
+     * Cria e retorna a janela de consulta de equipes.
+     *
+     * @return A janela de consulta de equipes.
+     */
 	public JFrame criarJanela() {
 		janelaConsultaEquipes = new JFrame("Tabela de Equipes");
 		janelaConsultaEquipes.setResizable(false);
@@ -45,7 +51,13 @@ public class JanelaConsultaEquipes {
 		return janelaConsultaEquipes;
 	}
 	
-	// metodo transforma a largura das colunas de acordo com a porcentagem informada
+    /**
+     * Ajusta a largura das colunas da tabela de acordo com as porcentagens fornecidas.
+     *
+     * @param table               A tabela a ser ajustada.
+     * @param tablePreferredWidth A largura preferida da tabela.
+     * @param percentages         As porcentagens para cada coluna.
+     */
 	public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
 	        double... percentages) {
 	    double total = 0;
@@ -58,7 +70,9 @@ public class JanelaConsultaEquipes {
 	                (tablePreferredWidth * (percentages[i] / total)));
 	    }
 	}
-	
+    /**
+     * Cria e atualiza a tabela de equipes com os dados do banco de dados.
+     */
 	public static void atualizarTabelaEquipes() {
 		tableModel = new TabelaNaoEditavel();
 		tabela = new JTable(tableModel);

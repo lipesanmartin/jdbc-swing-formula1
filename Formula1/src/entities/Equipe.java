@@ -8,64 +8,119 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connection.Conexao;
-
+/**
+ * A classe Equipe representa uma equipe de corrida.
+ */
 public class Equipe {
 
 	private Integer idEquipe;
 	private String nome;
 	private String nacionalidade;
 	private String chefe;
-
+    /**
+     * Construtor padrão da classe Equipe.
+     */
 	public Equipe() {
 
 	}
-
+    /**
+     * Construtor explícito da classe Equipe com parâmetro idEquipe.
+     * 
+     * @param idEquipe o ID da equipe
+     */
 	public Equipe(Integer idEquipe) {
 		this.idEquipe = idEquipe;
 		this.nome = "";
 		this.nacionalidade = "";
 		this.chefe = "";
 	}
-
+    /**
+     * Construtor explícito da classe Equipe com parâmetros.
+     * 
+     * @param idEquipe      o ID da equipe
+     * @param nome          o nome da equipe
+     * @param nacionalidade a nacionalidade da equipe
+     * @param chefe         o chefe da equipe
+     */
 	public Equipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		this.idEquipe = idEquipe;
 		this.nome = nome;
 		this.nacionalidade = nacionalidade;
 		this.chefe = chefe;
 	}
-
+    /**
+     * Obtém o ID da equipe.
+     * 
+     * @return o ID da equipe
+     */
 	public Integer getIdEquipe() {
 		return idEquipe;
 	}
-
+    /**
+     * Define/modifica o ID da equipe.
+     * 
+     * @param idEquipe o ID da equipe
+     */
 	public void setIdEquipe(Integer idEquipe) {
 		this.idEquipe = idEquipe;
 	}
-
+    /**
+     * Obtém o nome da equipe.
+     * 
+     * @return o nome da equipe
+     */
 	public String getNome() {
 		return nome;
 	}
-
+    /**
+     * Define/modifica o nome da equipe.
+     * 
+     * @param nome o nome da equipe
+     */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+    /**
+     * Obtém a nacionalidade da equipe.
+     * 
+     * @return a nacionalidade da equipe
+     */
 	public String getNacionalidade() {
 		return nacionalidade;
 	}
-
+    /**
+     * Define/modifica a nacionalidade da equipe.
+     * 
+     * @param nacionalidade a nacionalidade da equipe
+     */
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
-
+    /**
+     * Obtém o nome do chefe da equipe.
+     * 
+     * @return o nome do chefe da equipe
+     */
 	public String getChefe() {
 		return chefe;
 	}
-
+    /**
+     * Define/modifica o nome do chefe da equipe.
+     * 
+     * @param nome do chefe da equipe
+     */
 	public void setChefe(String chefe) {
 		this.chefe = chefe;
 	}
-
+	/**
+	 * Cadastra uma nova equipe no banco de dados MySQL.
+	 * 
+	 * @param idEquipe      o ID da equipe a ser cadastrada
+	 * @param nome          o nome da equipe
+	 * @param nacionalidade a nacionalidade da equipe
+	 * @param chefe         o nome do chefe da equipe
+	 * @return true se o cadastro for bem-sucedido e false caso contrário
+	 */
 	public boolean cadastrarEquipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		// Define a conexão
 		Connection conexao = null;
@@ -94,7 +149,12 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Obtém o ID de uma equipe com base no nome da mesma.
+	 * 
+	 * @param nome o nome da equipe
+	 * @return o ID da equipe, ou -1 se não for encontrada uma equipe com o nome fornecido
+	 */
 	public Integer getIdByName(String nome) {
 		Connection conexao = null;
 		int id = -1;
@@ -123,7 +183,11 @@ public class Equipe {
 		}
 		return id;
 	}
-	
+	/**
+	 * Obtém uma lista de IDs de todas as equipes cadastradas no banco de dados MySQL.
+	 * 
+	 * @return uma lista de IDs de equipes
+	 */
 	public List<Integer> getEquipeIdList() {
 		Connection conexao = null;
 		List<Integer> lista = new ArrayList<>();
@@ -183,7 +247,11 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Retorna uma lista contendo os nomes das equipes.
+	 *
+	 * @return uma lista de strings contendo os nomes das equipes cadastradas
+	 */
 	public List<String> getAllNamesById() {
 		Connection conexao = null;
 		List<String> lista = new ArrayList<>();
@@ -213,7 +281,12 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Retorna uma matriz de objetos contendo informações dos pilotos associados a uma equipe.
+	 *
+	 * @param equipeId o ID da equipe para a qual deseja-se obter a lista de pilotos
+	 * @return uma matriz de objetos contendo informações dos pilotos, onde cada linha representa um piloto e cada coluna representa um atributo do piloto (Nome, Nacionalidade, NumeroCarro)
+	 */
 	public Object[][] getListaPilotos(Integer equipeId) {
 		Connection conexao = null;
 		List<Object[]> lista = new ArrayList<>();
@@ -249,7 +322,12 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Consulta uma equipe pelo seu ID.
+	 *
+	 * @param idEquipe o ID da equipe a ser consultada
+	 * @return true se a equipe foi encontrada, false caso contrário
+	 */
 	public boolean consultarEquipe(Integer idEquipe) {
 		// Define a conexão
 		Connection conexao = null;
@@ -283,7 +361,12 @@ public class Equipe {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Consulta uma equipe com base no ID informado e atualiza os atributos da instância atual com os dados encontrados.
+	 *
+	 * @param idEquipe o ID da equipe a ser consultada
+	 * @return true se a equipe for encontrada e os atributos forem atualizados com os dados correspondentes, e false caso contrário
+	 */	
 	public boolean atualizarEquipe(Integer idEquipe, String nome, String nacionalidade, String chefe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
@@ -316,7 +399,12 @@ public class Equipe {
 			}
 		}
 	}
-
+	/**
+	 * Apaga uma equipe com base no ID informado.
+	 *
+	 * @param idEquipe o ID da equipe a ser apagada
+	 * @return true se a equipe for apagada com sucesso e false caso contrário
+	 */
 	public boolean apagarEquipe(Integer idEquipe) {
 		if (!consultarEquipe(idEquipe))
 			return false;
@@ -346,7 +434,12 @@ public class Equipe {
 			}
 		}
 	}
-
+	/**
+	 * Obtém os dados da tabela equipe.
+	 *
+	 * @return uma matriz de objetos contendo os dados da tabela equipe, ou uma matriz vazia se não houver registros na tabela
+	 *         
+	 */
 	public Object[][] getDataFromTable() {
 		Connection conexao = null;
 		List<Object[]> lista = new ArrayList<>();

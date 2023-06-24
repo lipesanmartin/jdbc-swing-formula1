@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connection.Conexao;
-
+/**
+ * A classe Corrida representa uma corrida de Fórmula 1.
+ */
 public class Corrida {
 
 	private Integer idCorrida;
@@ -16,11 +18,21 @@ public class Corrida {
 	private String circuito;
 	private Integer vencedor;
 	private Integer voltas;
-
+	/**
+	 * Construtor padrão da classe Corrida.
+	 */
 	public Corrida() {
 
 	}
-
+	/**
+	 * Construtor explícito da classe Corrida.
+	 *
+	 * @param idCorrida O ID da corrida.
+	 * @param nome      O nome da corrida.
+	 * @param circuito  O circuito da corrida.
+	 * @param voltas    O número de voltas da corrida.
+	 * @param vencedor  O ID do piloto vencedor da corrida.
+	 */
 	public Corrida(Integer idCorrida, String nome, String circuito, Integer voltas, Integer vencedor) {
 		this.idCorrida = idCorrida;
 		this.nome = nome;
@@ -28,11 +40,19 @@ public class Corrida {
 		this.vencedor = vencedor;
 		this.voltas = voltas;
 	}
-
+	/**
+	 * Obtém o ID da corrida.
+	 *
+	 * @return O ID da corrida.
+	 */	
 	public Integer getIdCorrida() {
 		return idCorrida;
 	}
-
+	/**
+	 * Define/modifica o ID da corrida.
+	 *
+	 * @param idCorrida O ID da corrida a ser definido.
+	 */
 	public void setIdCorrida(Integer idCorrida) {
 		this.idCorrida = idCorrida;
 	}
@@ -40,35 +60,72 @@ public class Corrida {
 	public String getNome() {
 		return nome;
 	}
-
+	/**
+	 * Obtém o nome da corrida.
+	 *
+	 * @return O nome da corrida.
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	/**
+	 * Obtém o nome do circuito.
+	 *
+	 * @return O nome do circuito.
+	 */
 	public String getCircuito() {
 		return circuito;
 	}
-
+	/**
+	 * Define/modifica o nome do circuito.
+	 *
+	 * @param circuito O nome do circuito a ser definido.
+	 */
 	public void setCircuito(String circuito) {
 		this.circuito = circuito;
 	}
-
+	/**
+	 * Obtém o número de voltas do circuito da corrida.
+	 *
+	 * @return O circuito da corrida.
+	 */
 	public Integer getVoltas() {
 		return voltas;
 	}
-
+	/**
+	 * Define/modifica o número de voltas do circuito da corrida.
+	 *
+	 * @param O circuito da corrida a ser definido.
+	 */
 	public void setVoltas(Integer voltas) {
 		this.voltas = voltas;
 	}
-
+	/**
+	 * Obtém o ID do piloto vencedor da corrida.
+	 *
+	 * @return O ID do piloto vencedor da corrida.
+	 */
 	public Integer getVencedor() {
 		return vencedor;
 	}
-
+	/**
+	 * Define/modifica o ID do piloto vencedor da corrida.
+	 *
+	 * @param vencedor O ID do piloto vencedor da corrida a ser definido.
+	 */
 	public void setVencedor(Integer voltas) {
 		this.vencedor = voltas;
 	}
-
+	/**
+	 * Realiza o cadastro de uma corrida no banco de dados MySQL.
+	 *
+	 * @param idCorrida O ID da corrida.
+	 * @param nome      O nome da corrida.
+	 * @param circuito  O circuito da corrida.
+	 * @param voltas    O número de voltas da corrida.
+	 * @param vencedor  O ID do piloto vencedor da corrida.
+	 * @return true se o cadastro for realizado com sucesso e false caso contrário.
+	 */
 	public boolean cadastrarCorrida(Integer idCorrida, String nome, String circuito, Integer voltas, Integer vencedor) {
 		// Define a conexão
 		Connection conexao = null;
@@ -104,7 +161,12 @@ public class Corrida {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Consulta uma corrida no banco de dados MySQL através do seu ID.
+	 *
+	 * @param idCorrida O ID da corrida a ser consultada.
+	 * @return true se a corrida for encontrada, false caso contrário.
+	 */
 	public boolean consultarCorrida(Integer idCorrida) {
 		// Define a conexão
 		Connection conexao = null;
@@ -139,7 +201,14 @@ public class Corrida {
 			Conexao.fechaConexao(conexao);
 		}
 	}
-
+	/**
+	 * Atualiza as informações de uma corrida no banco de dados MySQL.
+	 *
+	 * @param idCorrida O ID da corrida a ser atualizada.
+	 * @param voltas    O número de voltas da corrida.
+	 * @param vencedor  O ID do piloto vencedor da corrida.
+	 * @return true se a atualização for realizada com sucesso e false caso contrário.
+	 */
 	public boolean atualizarCorrida(Integer idCorrida, Integer voltas, Integer vencedor) {
 		if (!consultarCorrida(idCorrida))
 			return false;
@@ -153,7 +222,7 @@ public class Corrida {
 				String sql = "update corrida set VencedorID=?, voltas=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
-				// Define os par�metros da atualiza��o
+				// Define os parâmetros da atualização
 				ps.setInt(1, vencedor);
 				ps.setInt(2, voltas);
 				ps.setInt(3, idCorrida);
@@ -171,7 +240,12 @@ public class Corrida {
 			}
 		}
 	}
-
+	/**
+	 * Apaga uma corrida do banco de dados.
+	 *
+	 * @param idCorrida O ID da corrida a ser apagada.
+	 * @return true se a corrida for apagada com sucesso e false caso contrário.
+	 */
 	public boolean apagarCorrida(Integer idCorrida) {
 		if (!consultarCorrida(idCorrida))
 			return false;
@@ -185,7 +259,7 @@ public class Corrida {
 				String sql = "delete from corrida where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
-				// Define os par�metros da atualiza��o
+				// Define os par�metros da atualização
 				ps.setInt(1, idCorrida);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
@@ -201,7 +275,11 @@ public class Corrida {
 			}
 		}
 	}
-
+	/**
+	 * Retorna os dados das corridas cadastradas no banco de dados MySQL.
+	 *
+	 * @return uma matriz de objetos contendo os dados das corridas.
+	 */
 	public Object[][] getDataFromTable() {
 		Connection conexao = null;
 		List<Object[]> lista = new ArrayList<>();
