@@ -68,14 +68,18 @@ public class Corrida {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	/**
+	 * Obtém o nome do circuito.
+	 *
+	 * @return O nome do circuito.
+	 */
 	public String getCircuito() {
 		return circuito;
 	}
 	/**
-	 * Define/modifica o nome da corrida.
+	 * Define/modifica o nome do circuito.
 	 *
-	 * @param nome O nome da corrida a ser definido.
+	 * @param circuito O nome do circuito a ser definido.
 	 */
 	public void setCircuito(String circuito) {
 		this.circuito = circuito;
@@ -89,7 +93,7 @@ public class Corrida {
 		return voltas;
 	}
 	/**
-	 * Define/modifica o circuito da corrida.
+	 * Define/modifica o número de voltas do circuito da corrida.
 	 *
 	 * @param O circuito da corrida a ser definido.
 	 */

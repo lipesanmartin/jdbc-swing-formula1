@@ -14,6 +14,9 @@ import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 
 public class JanelaPrincipal {
+    /**
+     * Apresenta o menu principal da aplicação.
+     */
 	public void apresentarMenu() {
 		// define a janela
 		JFrame janelaPrincipal = new JFrame("Administração F1");
@@ -64,38 +67,66 @@ public class JanelaPrincipal {
 		label.setBounds(30, 0, 0, 0);
 		janelaPrincipal.add(label);
 		// adiciona ação para os itens de menu
+		/**
+		 * Adiciona um ActionListener ao item de menu "Piloto" para exibir a janela de pilotos quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		menuPiloto.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				piloto.setVisible(true);
 			}
 		});
+		/**
+		 * Adiciona um ActionListener ao item de menu "Equipe" para exibir a janela de equipe quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		menuEquipe.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				equipe.setVisible(true);
 			}
 		});
+		/**
+		 * Adiciona um ActionListener ao item de menu "Corrida" para exibir a janela de corrida quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		menuCorrida.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				corrida.setVisible(true);
 			}
 		});
+		/**
+		 * Adiciona um ActionListener ao item de menu "Pilotos" para exibir a janela de dados dos pilotos quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		tabelaPilotos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dadosPilotos.setVisible(true);
 			}
 		});
-		
+		/**
+		 * Adiciona um ActionListener ao item de menu "Equipes" para exibir a janela de dados das equipes quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		tabelaEquipes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dadosEquipes.setVisible(true);
 			}
 		});
-		
+		/**
+		 * Adiciona um ActionListener ao item de menu "Corridas" para exibir a janela de dados das corridas quando selecionado.
+		 *
+		 * @param e o evento de ação que ocorreu
+		 */
 		tabelaCorridas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -16,7 +16,10 @@ import javax.swing.table.DefaultTableModel;
 
 import entities.Equipe;
 import windows.customclasses.TabelaNaoEditavel;
-
+/**
+ * Uma janela de interface gráfica para a atualização de informações de uma equipe.
+ * A janela permite consultar, gravar, limpar e apagar dados de uma equipe, incluindo informações sobre pilotos associados.
+ */
 public class JanelaEquipe {
 	private JFrame janelaEquipe;
 	private JTextField jTextId;
@@ -29,7 +32,11 @@ public class JanelaEquipe {
 	private JButton botaoApagar;
 	private TabelaNaoEditavel tableModel;
 	private JTable tabela;
-
+	/**
+	 * Cria e retorna a janela de equipe.
+	 *
+	 * @return a janela de equipe
+	 */
 	public JFrame criarJanelaEquipe() {
 		// Define a janela
 		janelaEquipe = new JFrame("Atualização de equipe"); // Janela Normal
@@ -105,6 +112,17 @@ public class JanelaEquipe {
 		// Define objeto equipe para pesquisar no banco de dados
 		Equipe equipe = new Equipe();
 		// Define ações dos botões
+		/**
+		 * ActionListener para o botão 'botaoConsultar'. Ao ser acionado, verifica o ID inserido no campo de texto
+		 * 'jTextId' e realiza uma consulta à equipe correspondente. Se a equipe existir, exibe os dados nos campos
+		 * de texto 'jTextNome', 'jTextNacionalidade' e 'jTextChefeEquipe'. Também atualiza a tabela com os pilotos
+		 * da equipe. Se a equipe não estiver cadastrada, exibe uma mensagem de erro. Habilita ou desabilita os
+		 * campos e botões apropriados de acordo com o resultado da consulta. Altera o texto do botão 'botaoGravar'
+		 * para 'Alterar' e habilita o botão 'botaoApagar' se a equipe existir. Habilita o botão 'botaoGravar' para
+		 * permitir a atualização dos dados. Desabilita o botão 'botaoConsultar' após a consulta ser realizada.
+		 * Se ocorrer um erro durante a consulta ou se os campos não forem preenchidos corretamente, exibe uma mensagem
+		 * de erro.
+		 */
 		botaoConsultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -141,7 +159,13 @@ public class JanelaEquipe {
 				}
 			}
 		});
-
+		/**
+		 * ActionListener para o botão 'botaoGravar'. Ao ser acionado, exibe uma caixa de diálogo
+		 * de confirmação para o usuário. Se o usuário confirmar, os dados inseridos nos campos de texto
+		 * são coletados e processados para atualizar ou cadastrar uma equipe, dependendo do ID fornecido.
+		 * Antes de atualizar ou cadastrar, são realizadas validações nos campos de texto. Após a conclusão
+		 * da ação, a janela é restaurada para as configurações originais.
+		 */
 		botaoGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int resposta = JOptionPane.showConfirmDialog(janelaEquipe, "Deseja atualizar?", "Confirmação",
@@ -180,7 +204,12 @@ public class JanelaEquipe {
 				resetJanela();
 			}
 		});
-
+		/**
+		 * ActionListener para o botão 'botaoApagar'. Ao ser acionado, verifica se a equipe existe
+		 * e, em caso afirmativo, exibe uma caixa de diálogo de confirmação. Se o usuário confirmar,
+		 * a equipe é apagada da tabela. Se a equipe tiver pilotos associados a ela, uma mensagem de erro
+		 * é exibida. Após a ação ser concluída, a janela é restaurada para as configurações originais.
+		 */
 		botaoApagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(jTextId.getText());
@@ -204,7 +233,15 @@ public class JanelaEquipe {
 				}
 			}
 		});
-
+		/**
+		 * Adiciona um ActionListener ao botão Limpar.
+		 * 
+		 * Quando o botão é acionado, este ActionListener executa a seguinte ação:
+		 * Chama o método "resetJanela()" para redefinir a janela.
+		 * 
+		 * @param e O evento de ação que acionou o ActionListener.
+		 * @return O objeto da janela "janelaEquipe".
+		 */
 		botaoLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetJanela();
@@ -212,8 +249,11 @@ public class JanelaEquipe {
 		});
 		return janelaEquipe;
 	}
-
-	// reseta a janela para as condições originais
+	/**
+	 * Reseta a janela para as condições originais
+	 * Reseta a janela para as condições originais, limpando os campos, desabilitando/enabling botões
+	 * e restaurando a tabela.
+	 */
 	public void resetJanela() {
 		jTextId.setText(""); // Limpar campo
 		jTextNome.setText(""); // Limpar campo
