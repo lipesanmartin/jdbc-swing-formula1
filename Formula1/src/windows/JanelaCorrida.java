@@ -24,13 +24,14 @@ public class JanelaCorrida {
 	private JTextField jTextId;
 	private JTextField jTextNome;
 	private JTextField jTextCircuito;
-	JComboBox<Integer> dropdownVencedorId;
-	JTextField jTextVencedorNome;
+	JComboBox<String> comboboxVencedor;
+	JTextField jTextVoltas;
 	JTextField jTextEquipeVencedora;
 	private JButton botaoConsultar;
 	private JButton botaoGravar;
 	private JButton botaoLimpar;
 	private JButton botaoApagar;
+	private JButton botaoAtualizarPiloto;
 
 	public JFrame criarJanelaCorrida() {
 		// Define a janela
@@ -46,58 +47,58 @@ public class JanelaCorrida {
 		JLabel labelId = new JLabel("ID: ");
 		JLabel labelNome = new JLabel("Nome: ");
 		JLabel labelCircuito = new JLabel("Circuito: ");
-		JLabel labelVencedorId = new JLabel("Vencedor ID: ");
+		JLabel labelVoltas = new JLabel("Voltas: ");
 		JLabel labelVencedorNome = new JLabel("Vencedor: ");
 		JLabel labelEquipeVencedora = new JLabel("Equipe: ");
 		// Posiciona os labels na janela
 		labelId.setBounds(50, 40, 100, 20); // coluna, linha, largura, tamanho
 		labelNome.setBounds(50, 80, 100, 20);
 		labelCircuito.setBounds(50, 120, 100, 20);
-		labelVencedorId.setBounds(50, 160, 100, 20);
+		labelVoltas.setBounds(50, 160, 100, 20);
 		labelVencedorNome.setBounds(50, 200, 100, 20);
 		labelEquipeVencedora.setBounds(50, 240, 100, 20);
 		// Define os input box
 		jTextId = new JTextField();
 		jTextNome = new JTextField();
 		jTextCircuito = new JTextField();
-		dropdownVencedorId = new JComboBox<Integer>();
-		jTextVencedorNome = new JTextField();
+		comboboxVencedor = new JComboBox<String>();
+		jTextVoltas = new JTextField();
 		jTextEquipeVencedora = new JTextField();
 		// Define se os campos estão habilitados ou não no início
 		jTextId.setEnabled(true);
 		jTextNome.setEnabled(false);
 		jTextCircuito.setEnabled(false);
-		dropdownVencedorId.setEnabled(false);
-		jTextVencedorNome.setEnabled(false);
+		comboboxVencedor.setEnabled(false);
+		jTextVoltas.setEnabled(false);
 		jTextEquipeVencedora.setEnabled(false);
 		// Posiciona os input box
-		jTextId.setBounds(180, 40, 50, 20);
-		jTextNome.setBounds(180, 80, 150, 20);
-		jTextCircuito.setBounds(180, 120, 150, 20);
-		dropdownVencedorId.setBounds(180, 160, 50, 20);
-		jTextVencedorNome.setBounds(180, 200, 150, 20);
-		jTextEquipeVencedora.setBounds(180, 240, 150, 20);
+		jTextId.setBounds(180, 40, 70, 20);
+		jTextNome.setBounds(180, 80, 170, 20);
+		jTextCircuito.setBounds(180, 120, 200, 20);
+		jTextVoltas.setBounds(180, 160, 70, 20);
+		comboboxVencedor.setBounds(180, 200, 170, 20);
+		jTextEquipeVencedora.setBounds(180, 240, 170, 20);
 		jTextId.setDisabledTextColor(Color.DARK_GRAY);
 		jTextNome.setDisabledTextColor(Color.DARK_GRAY);
 		jTextCircuito.setDisabledTextColor(Color.DARK_GRAY);
-		jTextVencedorNome.setDisabledTextColor(Color.DARK_GRAY);
+		jTextVoltas.setDisabledTextColor(Color.DARK_GRAY);
 		jTextEquipeVencedora.setDisabledTextColor(Color.DARK_GRAY);
 		// Adiciona os rótulos e os input box na janela
 		janelaCorrida.add(labelId);
 		janelaCorrida.add(labelNome);
 		janelaCorrida.add(labelCircuito);
-		janelaCorrida.add(labelVencedorId);
+		janelaCorrida.add(labelVoltas);
 		janelaCorrida.add(labelVencedorNome);
 		janelaCorrida.add(labelEquipeVencedora);
 		janelaCorrida.add(jTextId);
 		janelaCorrida.add(jTextNome);
 		janelaCorrida.add(jTextCircuito);
-		janelaCorrida.add(dropdownVencedorId);
-		janelaCorrida.add(jTextVencedorNome);
+		janelaCorrida.add(comboboxVencedor);
+		janelaCorrida.add(jTextVoltas);
 		janelaCorrida.add(jTextEquipeVencedora);
 		// Define botões e a localização deles na janela
 		botaoConsultar = new JButton("Consultar");
-		botaoConsultar.setBounds(230, 40, 100, 20);
+		botaoConsultar.setBounds(250, 40, 100, 20);
 		janelaCorrida.add(botaoConsultar);
 		botaoGravar = new JButton("Gravar");
 		botaoGravar.setBounds(50, 300, 100, 20);
@@ -110,6 +111,11 @@ public class JanelaCorrida {
 		botaoApagar.setBounds(200, 300, 100, 20);
 		botaoApagar.setEnabled(false);
 		janelaCorrida.add(botaoApagar);
+		botaoAtualizarPiloto = new JButton("Atualizar Piloto");
+		botaoAtualizarPiloto.setBounds(50, 200, 130, 20);
+		botaoAtualizarPiloto.setVisible(false);
+		botaoAtualizarPiloto.setEnabled(false);
+		janelaCorrida.add(botaoAtualizarPiloto);
 		// Define objeto corrida para pesquisar no banco de dados
 		Corrida corrida = new Corrida();
 		// Define ações dos botões
@@ -120,12 +126,13 @@ public class JanelaCorrida {
 					int id = Integer.parseInt(jTextId.getText());
 					botaoGravar.setEnabled(true);
 					String nome, circuito, vencedorNome = null, equipeNome = null;
-					int vencedorId;
-					if (!corrida.consultarCorrida(id)) {
+					int vencedorId, voltas;
+					if (!corrida.consultarCorrida(id)) { // caso a corrida nao exista na tabela, cria a janela zerada
 						JOptionPane.showMessageDialog(janelaCorrida, "Corrida não cadastrada.");
 						nome = "";
 						circuito = "";
 						vencedorId = 0;
+						voltas = 0;
 						vencedorNome = "";
 						equipeNome = "";
 						jTextId.setEnabled(false);
@@ -133,12 +140,15 @@ public class JanelaCorrida {
 						botaoApagar.setEnabled(false);
 						jTextNome.setEnabled(true);
 						jTextNome.requestFocus();
+						ativarCombobox();
+					// cria a janela com informações da tabela
 					} else {
 						Equipe equipe = new Equipe();
 						int equipeId;
 						nome = corrida.getNome();
 						circuito = corrida.getCircuito();
 						vencedorId = corrida.getVencedor();
+						voltas = corrida.getVoltas();
 						if (piloto.consultarPiloto(vencedorId)) {
 							vencedorNome = piloto.getNome();
 							equipeId = piloto.getIdEquipe();
@@ -146,29 +156,24 @@ public class JanelaCorrida {
 								equipeNome = equipe.getNome();
 							}
 						}
+						labelVencedorNome.setVisible(false);
+						botaoAtualizarPiloto.setVisible(true);
+						botaoAtualizarPiloto.setEnabled(true);
 						jTextId.setEnabled(false);
 						jTextCircuito.setEnabled(false);
+						jTextVoltas.setEnabled(true);
 						botaoApagar.setEnabled(true);
-						botaoGravar.setBounds(30, 300, 150, 20);
-						botaoGravar.setText("Atualizar vencedor");
+						comboboxVencedor.addItem(vencedorNome);
+						comboboxVencedor.setEnabled(false);
 					}
-					List<Integer> listaPilotos = new ArrayList<>();
-					for (Integer i : piloto.getPilotoIdList()) {
-						listaPilotos.add(i);
-					}
-					for (Integer item : listaPilotos) {
-						dropdownVencedorId.addItem(item);
-					}
-					dropdownVencedorId.getSelectedItem();
 					jTextNome.setText(nome);
 					jTextCircuito.setText(circuito);
-					jTextVencedorNome.setText(vencedorNome);
 					jTextEquipeVencedora.setText(equipeNome);
-					dropdownVencedorId.setEnabled(true);
+					jTextVoltas.setText(Integer.toString(voltas));
 					botaoConsultar.setEnabled(false);
 
 				} catch (Exception erro) {
-					JOptionPane.showMessageDialog(janelaCorrida, "Preencha os campos corretamente!!");
+					JOptionPane.showMessageDialog(janelaCorrida, "Preencha os campos corretamente!!" + erro.toString());
 				}
 			}
 		});
@@ -179,7 +184,8 @@ public class JanelaCorrida {
 					int resposta = JOptionPane.showConfirmDialog(janelaCorrida, "Deseja atualizar?", "Confirmação",
 							JOptionPane.YES_NO_OPTION);
 					if (resposta == JOptionPane.YES_OPTION) {
-						int id;
+						Piloto piloto = new Piloto();
+						int id, voltas;
 						try {
 							id = Integer.parseInt(jTextId.getText());
 						} catch (NumberFormatException ex) {
@@ -188,15 +194,16 @@ public class JanelaCorrida {
 						}
 						String nome = jTextNome.getText().trim(); // Retira os espaços em branco
 						String circuito = jTextCircuito.getText().trim(); // Retira os espaços em branco
+						voltas = Integer.parseInt(jTextVoltas.getText().trim());
 						int vencedorId;
-						Object selectedItem = dropdownVencedorId.getSelectedItem();
-						if (selectedItem == null) {
+						String nomePiloto = (String) comboboxVencedor.getSelectedItem();
+						if (nomePiloto == null) {
 							JOptionPane.showMessageDialog(janelaCorrida,
 									"Não é possível cadastrar a corrida pois não há pilotos cadastrados!");
 							return;
 						} else {
 							try {
-								vencedorId = (int) selectedItem;
+								vencedorId = piloto.getIdByName(nomePiloto);
 							} catch (ClassCastException ex) {
 								JOptionPane.showMessageDialog(janelaCorrida, "Erro ao obter o ID do piloto vencedor!");
 								return;
@@ -210,13 +217,13 @@ public class JanelaCorrida {
 							jTextCircuito.requestFocus();
 						} else {
 							if (!corrida.consultarCorrida(id)) {
-								if (!corrida.cadastrarCorrida(id, nome, circuito, vencedorId)) {
+								if (!corrida.cadastrarCorrida(id, nome, circuito, voltas, vencedorId)) {
 									JOptionPane.showMessageDialog(janelaCorrida, "Erro no cadastro da corrida!");
 								} else {
 									JOptionPane.showMessageDialog(janelaCorrida, "Cadastro realizado!");
 								}
 							} else {
-								if (!corrida.atualizarVencedor(id, vencedorId)) {
+								if (!corrida.atualizarCorrida(id, voltas, vencedorId)) {
 									JOptionPane.showMessageDialog(janelaCorrida,
 											"Erro na atualização da corrida! O piloto vencedor precisa estar cadastrado!");
 								} else {
@@ -229,6 +236,7 @@ public class JanelaCorrida {
 					JOptionPane.showMessageDialog(janelaCorrida, "Erro inesperado: " + ex.getMessage());
 				} finally {
 					resetarJanela();
+					labelVencedorNome.setVisible(true);
 				}
 			}
 		});
@@ -245,6 +253,7 @@ public class JanelaCorrida {
 						corrida.apagarCorrida(id);
 						JOptionPane.showMessageDialog(janelaCorrida, "Corrida apagada da tabela!");
 						resetarJanela();
+						labelVencedorNome.setVisible(true);
 					}
 				} else {
 					JOptionPane.showMessageDialog(janelaCorrida, "Corrida não encontrada na tabela!");
@@ -255,6 +264,13 @@ public class JanelaCorrida {
 		botaoLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetarJanela();
+				labelVencedorNome.setVisible(true);
+			}
+		});
+		
+		botaoAtualizarPiloto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ativarCombobox();
 			}
 		});
 		return janelaCorrida;
@@ -265,19 +281,34 @@ public class JanelaCorrida {
 		jTextId.setText(""); // Limpar campos
 		jTextNome.setText("");
 		jTextCircuito.setText("");
-		dropdownVencedorId.removeAllItems();
-		jTextVencedorNome.setText("");
+		comboboxVencedor.removeAllItems();
+		jTextVoltas.setText("");
 		jTextEquipeVencedora.setText("");
 		jTextId.setEnabled(true);
 		jTextNome.setEnabled(false);
 		jTextCircuito.setEnabled(false);
-		dropdownVencedorId.setEnabled(false);
+		comboboxVencedor.setEnabled(false);
 		botaoConsultar.setEnabled(true);
 		botaoGravar.setEnabled(false);
 		botaoLimpar.setEnabled(true);
 		botaoApagar.setEnabled(false);
+		botaoAtualizarPiloto.setVisible(false);
+		botaoAtualizarPiloto.setEnabled(false);
 		jTextId.requestFocus(); // Colocar o foco em um campo
 		botaoGravar.setBounds(50, 300, 100, 20);
 		botaoGravar.setText("Gravar");
+	}
+	
+	public void ativarCombobox() {
+		comboboxVencedor.removeAllItems();
+		List<String> listaEquipes = new ArrayList<>();
+		Piloto piloto = new Piloto();
+		for (String i : piloto.getNameList()) {
+			listaEquipes.add(i);
+		}
+		for (String item : listaEquipes) {
+			comboboxVencedor.addItem(item);
+		}
+		comboboxVencedor.setEnabled(true);
 	}
 }

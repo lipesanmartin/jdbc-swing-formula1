@@ -154,7 +154,7 @@ public class Equipe {
 		}
 	}
 	
-	public List<String> getEquipeNameList() {
+	public List<String> getNameList() {
 		Connection conexao = null;
 		List<String> lista = new ArrayList<>();
 		try {

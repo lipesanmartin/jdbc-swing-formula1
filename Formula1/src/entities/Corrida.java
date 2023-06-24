@@ -15,17 +15,18 @@ public class Corrida {
 	private String nome;
 	private String circuito;
 	private Integer vencedor;
+	private Integer voltas;
 
 	public Corrida() {
 
 	}
 
-	public Corrida(Integer idCorrida, String nome, String circuito, Integer vencedor) {
+	public Corrida(Integer idCorrida, String nome, String circuito, Integer voltas, Integer vencedor) {
 		this.idCorrida = idCorrida;
 		this.nome = nome;
 		this.circuito = circuito;
 		this.vencedor = vencedor;
-
+		this.voltas = voltas;
 	}
 
 	public Integer getIdCorrida() {
@@ -52,6 +53,14 @@ public class Corrida {
 		this.circuito = circuito;
 	}
 
+	public Integer getVoltas() {
+		return voltas;
+	}
+
+	public void setVoltas(Integer voltas) {
+		this.voltas = voltas;
+	}
+
 	public Integer getVencedor() {
 		return vencedor;
 	}
@@ -60,7 +69,7 @@ public class Corrida {
 		this.vencedor = voltas;
 	}
 
-	public boolean cadastrarCorrida(Integer idCorrida, String nome, String circuito, Integer vencedor) {
+	public boolean cadastrarCorrida(Integer idCorrida, String nome, String circuito, Integer voltas, Integer vencedor) {
 		// Define a conexão
 		Connection conexao = null;
 		try {
@@ -72,14 +81,15 @@ public class Corrida {
 				return false;
 			}
 			// Define a consulta
-			String sql = "insert into corrida set ID=?, Nome=?, circuito=?, VencedorID=?";
+			String sql = "insert into corrida set ID=?, Nome=?, circuito=?, voltas=?, VencedorID=?";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Define os parâmetros da consulta
 			ps.setInt(1, idCorrida);
 			ps.setString(2, nome);
 			ps.setString(3, circuito);
-			ps.setInt(4, vencedor);
+			ps.setInt(4, voltas);
+			ps.setInt(5, vencedor);
 			int totalRegistrosAfetados = ps.executeUpdate();
 			if (totalRegistrosAfetados == 0) {
 				System.out.println("Não foi feito o cadastro!!");
@@ -118,6 +128,7 @@ public class Corrida {
 					this.nome = rs.getString("Nome");
 					this.circuito = rs.getString("Circuito");
 					this.vencedor = rs.getInt("VencedorID");
+					this.voltas = rs.getInt("voltas");
 				}
 				return true;
 			}
@@ -129,7 +140,7 @@ public class Corrida {
 		}
 	}
 
-	public boolean atualizarVencedor(Integer idCorrida, int vencedor) {
+	public boolean atualizarCorrida(Integer idCorrida, Integer voltas, Integer vencedor) {
 		if (!consultarCorrida(idCorrida))
 			return false;
 		else {
@@ -139,12 +150,13 @@ public class Corrida {
 				// Define a conexão
 				conexao = Conexao.conectaBanco();
 				// Define a consulta
-				String sql = "update corrida set VencedorID=? where ID=?";
+				String sql = "update corrida set VencedorID=?, voltas=? where ID=?";
 				// Prepara a consulta
 				PreparedStatement ps = conexao.prepareStatement(sql);
 				// Define os par�metros da atualiza��o
 				ps.setInt(1, vencedor);
-				ps.setInt(2, idCorrida);
+				ps.setInt(2, voltas);
+				ps.setInt(3, idCorrida);
 				int totalRegistrosAfetados = ps.executeUpdate();
 				if (totalRegistrosAfetados == 0)
 					System.out.println("Não foi feita a atualização!");
@@ -189,7 +201,7 @@ public class Corrida {
 			}
 		}
 	}
-	
+
 	public Object[][] getDataFromTable() {
 		Connection conexao = null;
 		List<Object[]> lista = new ArrayList<>();
@@ -197,10 +209,8 @@ public class Corrida {
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select c.id, c.nome, c.circuito, p.nome, e.Nome \n"
-					+ "from corrida c \n"
-					+ "join piloto p on c.VencedorID = p.ID\n"
-					+ "join equipe e on e.ID = p.EquipeID;";
+			String sql = "select c.id, c.nome, c.circuito, p.nome, e.Nome \n" + "from corrida c \n"
+					+ "join piloto p on c.VencedorID = p.ID\n" + "join equipe e on e.ID = p.EquipeID;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			// Executa a consulta, resultando em um objeto da classe ResultSet

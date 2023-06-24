@@ -5,7 +5,7 @@ USE Formula1;
 CREATE TABLE Equipe (
   ID INT PRIMARY KEY,
   Nome VARCHAR(255) NOT NULL,
-  País VARCHAR(255) NOT NULL,
+  Nacionalidade VARCHAR(255) NOT NULL,
   Chefe VARCHAR(255) NOT NULL
 );
 
@@ -22,6 +22,7 @@ CREATE TABLE Corrida (
   ID INT PRIMARY KEY,
   Nome VARCHAR(255) NOT NULL,
   Circuito VARCHAR(255) NOT NULL,
+  Voltas INT,
   VencedorID INT,
   FOREIGN KEY (VencedorID) REFERENCES Piloto(ID)
 );
@@ -61,27 +62,26 @@ INSERT INTO `piloto` VALUES
 (20,'Alexander Albon','Tailândia',23,10);
 
 INSERT INTO `corrida` VALUES
-(1,'GP do Bahrein','Circuito Internacional do Bahrein',5),
-(2,'GP da Arábia Saudita','Jeddah Corniche Circuit',1),
-(3,'GP da Austrália','Circuito de Albert Park',5),
-(4,'GP da Emilia-Romagna','Autódromo Enzo e Dino Ferrari',1),
-(5,'GP de Miami','Miami International Autodrome',1),
-(6,'GP da Espanha','Circuito da Catalunha',1),
-(7,'GP de Mônaco','Circuito de Mônaco',2),
-(8,'GP do Azerbaijão','Circuito Urbano de Baku',1),
-(9,'GP do Canadá','Circuito Gilles Villeneuve',1),
-(10,'GP da Grã-Bretanha','Circuito de Silverstone',6),
-(11,'GP da Áustria','Red Bull Ring',5),
-(12,'GP da França','Circuito Paul Ricard',1),
-(13,'GP da Hungria','Hungaroring',1),
-(14,'GP da Bélgica','Spa-Francorchamps',1),
-(15,'GP da Holanda','Circuito de Park Zandvoort',1),
-(16,'GP da Itália','Circuito de Monza',1),
-(17,'GP de Singapura','Circuito Urbano de Marina Bay',2),
-(18,'GP do Japão','Circuito de Suzuka',1),
-(19,'GP dos Estados Unidos','Cicuito das Américas',1),
-(20,'GP do México','Autódromo Hermanos Rodríguez',1),
-(21,'GP do Brasil','Autódromo José Carlos Pace',4),
-(22,'GP de Abu Dhabi','Circuito de Yas Marina',1);
-
+(1,'GP do Bahrein','Circuito Internacional do Bahrein',57,5),
+(2,'GP da Arábia Saudita','Jeddah Corniche Circuit',50,1),
+(3,'GP da Austrália','Circuito de Albert Park',58,5),
+(4,'GP da Emilia-Romagna','Autódromo Enzo e Dino Ferrari',63,1),
+(5,'GP de Miami','Miami International Autodrome',57,1),
+(6,'GP da Espanha','Circuito da Catalunha',66,1),
+(7,'GP de Mônaco','Circuito de Mônaco',78,2),
+(8,'GP do Azerbaijão','Circuito Urbano de Baku',51,1),
+(9,'GP do Canadá','Circuito Gilles Villeneuve',70,1),
+(10,'GP da Grã-Bretanha','Circuito de Silverstone',52,6),
+(11,'GP da Áustria','Red Bull Ring',71,5),
+(12,'GP da França','Circuito Paul Ricard',53,1),
+(13,'GP da Hungria','Hungaroring',70,1),
+(14,'GP da Bélgica','Spa-Francorchamps',44,1),
+(15,'GP da Holanda','Circuito de Park Zandvoort',72,1),
+(16,'GP da Itália','Circuito de Monza',53,1),
+(17,'GP de Singapura','Circuito Urbano de Marina Bay',61,2),
+(18,'GP do Japão','Circuito de Suzuka',53,1),
+(19,'GP dos Estados Unidos','Cicuito das Américas',56,1),
+(20,'GP do México','Autódromo Hermanos Rodríguez',71,1),
+(21,'GP do Brasil','Autódromo José Carlos Pace',71,4),
+(22,'GP de Abu Dhabi','Circuito de Yas Marina',58,1);
 

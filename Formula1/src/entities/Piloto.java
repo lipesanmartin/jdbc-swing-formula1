@@ -269,33 +269,33 @@ public class Piloto {
 	}
 
 	// gera uma lista com as IDs de todos os pilotos cadastrados
-	public List<Integer> getPilotoIdList() {
+	public Integer getIdByName(String nome) {
 		Connection conexao = null;
-		List<Integer> lista = new ArrayList<>();
+		int id = -1;
 		try {
 			conexao = Conexao.conectaBanco();
 			// Define a consulta
-			String sql = "select ID from piloto order by ID;";
+			String sql = "select ID from piloto where nome=?;";
 			// Prepara a consulta
 			PreparedStatement ps = conexao.prepareStatement(sql);
+			ps.setString(1, nome);
 			// Executa a consulta, resultando em um objeto da classe ResultSet
 			ResultSet rs = ps.executeQuery();
 			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
 				System.out.println("Não há pilotos cadastrados!");
-				return lista; // Equipe não cadastrada
 			} else {
 				// Efetua a leitura do registro da tabela
 				while (rs.next()) {
-					lista.add(rs.getInt("ID"));
+					id = rs.getInt("ID");
+
 				}
-				return lista;
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao consultar a equipe: " + erro.toString());
-			return lista;
 		} finally {
 			Conexao.fechaConexao(conexao);
 		}
+		return id;
 	}
 
 	public boolean apagarPiloto(Integer idPiloto) {
@@ -361,6 +361,36 @@ public class Piloto {
 		} catch (SQLException erro) {
 			System.out.println("Erro ao consultar piloto: " + erro.toString());
 			return new Object[0][0];
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+
+	public List<String> getNameList() {
+		Connection conexao = null;
+		List<String> lista = new ArrayList<>();
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select nome from piloto;";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Não há pilotos cadastrados!");
+				return lista; // Equipe não cadastrada
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					lista.add(rs.getString("nome"));
+
+				}
+				return lista;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar piloto: " + erro.toString());
+			return lista;
 		} finally {
 			Conexao.fechaConexao(conexao);
 		}

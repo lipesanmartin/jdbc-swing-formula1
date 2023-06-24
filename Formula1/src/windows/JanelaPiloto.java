@@ -143,7 +143,7 @@ public class JanelaPiloto {
 						jTextNome.setEnabled(true);
 						jTextNome.requestFocus();
 						jComboboxIdEquipe.setEnabled(true);
-						ativarDropdown();
+						ativarCombobox();
 					} else {
 						// piloto cadastrado, mostra os atributos na tela
 						Equipe equipe = new Equipe();
@@ -282,7 +282,7 @@ public class JanelaPiloto {
 				if (piloto.consultarPiloto(id)) {
 					jComboboxIdEquipe.removeAllItems();
 					jComboboxIdEquipe.setEnabled(true);
-					ativarDropdown();
+					ativarCombobox();
 				}
 
 			}
@@ -317,16 +317,14 @@ public class JanelaPiloto {
 
 	// cria o combo box para que o piloto só possa ser cadastrado em equipes
 	// existentes.
-	public void ativarDropdown() {
+	public void ativarCombobox() {
 		List<String> listaEquipes = new ArrayList<>();
 		Equipe equipe = new Equipe();
-		for (String i : equipe.getEquipeNameList()) {
+		for (String i : equipe.getNameList()) {
 			listaEquipes.add(i);
 		}
 		for (String item : listaEquipes) {
 			jComboboxIdEquipe.addItem(item);
 		}
-
-		botaoConsultar.setEnabled(false);
 	}
 }
