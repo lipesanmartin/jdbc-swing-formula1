@@ -23,7 +23,7 @@ public class JanelaPrincipal {
 		janelaPrincipal.setResizable(false);
 		janelaPrincipal.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		janelaPrincipal.getContentPane().setBackground(Color.DARK_GRAY);
-		janelaPrincipal.setSize(390, 300);
+		janelaPrincipal.setSize(520, 400);
 		janelaPrincipal.setLocationRelativeTo(null);
 		// cria o menu da janela principal
 		JMenuBar menuBar = new JMenuBar();

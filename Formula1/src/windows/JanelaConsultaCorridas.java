@@ -79,7 +79,7 @@ public class JanelaConsultaCorridas {
 		tableModel.addColumn("Circuito");
 		tableModel.addColumn("Vencedor");
 		tableModel.addColumn("Equipe");
-		setJTableColumnsWidth(tabela, 480, 4, 24, 24, 24, 24);
+		setJTableColumnsWidth(tabela, 480, 4, 24, 30, 21, 21);
 		JScrollPane painelTabela = new JScrollPane(tabela);
 		painelTabela.setBounds(0, 0, 700, 270);
 		janelaConsultaCorridas.add(painelTabela);
