@@ -60,6 +60,7 @@ public class JanelaPrincipal {
 		JFrame dadosEquipes = consultaEquipes.criarJanela();
 		JanelaConsultaCorridas consultaCorridas = new JanelaConsultaCorridas();
 		JFrame dadosCorridas = consultaCorridas.criarJanela();
+		// adiciona a imagem de fundo
 		JLabel label = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("/f1icon.png")).getImage();
 		label.setIcon(new ImageIcon(img));
