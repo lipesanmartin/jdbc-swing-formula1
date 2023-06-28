@@ -248,6 +248,11 @@ public class JanelaPiloto {
 						String nacionalidade = jTextNacionalidade.getText().trim();
 						try {
 							numCarro = Integer.parseInt(jTextNumero.getText());
+							if (numCarro <= 0) {
+								JOptionPane.showMessageDialog(janelaPiloto,
+										"Número inválido. Insira um número inteiro positivo válido.");
+								return;
+							}
 						} catch (NumberFormatException ex) {
 							JOptionPane.showMessageDialog(janelaPiloto,
 									"Número de carro inválido. Insira um número inteiro válido.");

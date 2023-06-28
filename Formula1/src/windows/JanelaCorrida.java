@@ -226,6 +226,11 @@ public class JanelaCorrida {
 						String nome = jTextNome.getText().trim(); // Retira os espaços em branco
 						String circuito = jTextCircuito.getText().trim(); // Retira os espaços em branco
 						voltas = Integer.parseInt(jTextVoltas.getText().trim());
+						if (voltas <= 0) {
+							JOptionPane.showMessageDialog(janelaCorrida,
+									"Número de voltas inválido. Insira um número inteiro maior que 0 válido.");
+							return;
+						}
 						int vencedorId;
 						String nomePiloto = (String) comboboxVencedor.getSelectedItem();
 						if (nomePiloto == null) {
