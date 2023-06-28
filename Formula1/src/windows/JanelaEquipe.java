@@ -127,6 +127,11 @@ public class JanelaEquipe {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(jTextId.getText());
+					if (id <= 0) {
+						JOptionPane.showMessageDialog(janelaEquipe,
+								"ID inválido. Insira um número inteiro maior que 0 válido.");
+						return;
+					}
 					botaoGravar.setEnabled(true);
 					String nome, nacionalidade, chefeEquipe;
 					if (!equipe.consultarEquipe(id)) {

@@ -117,7 +117,7 @@ public class JanelaCorrida {
 		botaoApagar.setBounds(200, 300, 100, 20);
 		botaoApagar.setEnabled(false);
 		janelaCorrida.add(botaoApagar);
-		botaoAtualizarPiloto = new JButton("Atualizar Piloto");
+		botaoAtualizarPiloto = new JButton("Mudar Vencedor");
 		botaoAtualizarPiloto.setBounds(50, 200, 130, 20);
 		botaoAtualizarPiloto.setVisible(false);
 		botaoAtualizarPiloto.setEnabled(false);
@@ -143,6 +143,11 @@ public class JanelaCorrida {
 				try {
 					Piloto piloto = new Piloto();
 					int id = Integer.parseInt(jTextId.getText());
+					if (id <= 0) {
+						JOptionPane.showMessageDialog(janelaCorrida,
+								"ID inválido. Insira um número inteiro maior que 0 válido.");
+						return;
+					}
 					botaoGravar.setEnabled(true);
 					String nome, circuito, vencedorNome = null, equipeNome = null;
 					int vencedorId, voltas;
