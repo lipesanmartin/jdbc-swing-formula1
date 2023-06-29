@@ -18,7 +18,7 @@ public class Conexao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			String url = "jdbc:mysql://localhost/Formula1"; // URL do banco de dados
 			String user = "root"; // nome do usuário do banco
-			String password = "2205"; // senha do banco (deve ser mudada de acordo com o banco)
+			String password = ""; // senha do banco (deve ser mudada de acordo com o banco)
 			conexao = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException erro) {
 			System.out.println("Driver não encontrado: " + erro);

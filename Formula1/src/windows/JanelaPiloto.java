@@ -234,20 +234,24 @@ public class JanelaPiloto {
 				try {
 					int resposta = JOptionPane.showConfirmDialog(janelaPiloto, "Deseja atualizar?", "Confirmação",
 							JOptionPane.YES_NO_OPTION);
+
 					if (resposta == JOptionPane.YES_OPTION) {
 						int id, numCarro, idEquipe;
+
 						try {
 							id = Integer.parseInt(jTextId.getText());
-
 						} catch (NumberFormatException ex) {
 							JOptionPane.showMessageDialog(janelaPiloto,
 									"ID inválido. Insira um número inteiro maior que 0 válido.");
 							return;
 						}
+
 						String nome = jTextNome.getText().trim();
 						String nacionalidade = jTextNacionalidade.getText().trim();
+
 						try {
 							numCarro = Integer.parseInt(jTextNumero.getText());
+
 							if (numCarro <= 0) {
 								JOptionPane.showMessageDialog(janelaPiloto,
 										"Número inválido. Insira um número inteiro positivo válido.");
@@ -269,10 +273,6 @@ public class JanelaPiloto {
 							JOptionPane.showMessageDialog(janelaPiloto,
 									"Não é possível cadastrar, pois não há equipes cadastradas. Um piloto sempre precisará de uma equipe!");
 							return;
-						} else {
-							String nomeEquipe = (String) jComboboxIdEquipe.getSelectedItem();
-							Equipe equipe = new Equipe();
-							idEquipe = equipe.getIdByName(nomeEquipe);
 						}
 
 						if (nome.length() == 0) {
@@ -282,11 +282,17 @@ public class JanelaPiloto {
 							JOptionPane.showMessageDialog(janelaPiloto, "Preencha o campo nacionalidade");
 							jTextNacionalidade.requestFocus();
 						} else {
+							String nomeEquipe = (String) jComboboxIdEquipe.getSelectedItem();
+							Equipe equipe = new Equipe();
+							idEquipe = equipe.getIdByName(nomeEquipe);
+
 							if (!piloto.consultarPiloto(id)) {
 								if (!piloto.atualizarPiloto(id, numCarro, idEquipe)) {
-									JOptionPane.showMessageDialog(janelaPiloto, "Erro no cadastro do piloto!");
-								} else {
+									piloto.cadastrarPiloto(id, nome, nacionalidade, numCarro, idEquipe);
 									JOptionPane.showMessageDialog(janelaPiloto, "Cadastro realizado!");
+								} else {
+
+									JOptionPane.showMessageDialog(janelaPiloto, "Erro no cadastro do piloto!");
 								}
 								resetJanela();
 							} else {
