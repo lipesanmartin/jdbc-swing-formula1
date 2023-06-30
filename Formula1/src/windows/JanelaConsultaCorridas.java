@@ -13,6 +13,7 @@ import javax.swing.table.TableColumn;
 
 import entities.Corrida;
 import windows.customclasses.TabelaNaoEditavel;
+
 /**
  * Classe responsável por criar uma janela de consulta de corridas.
  */
@@ -21,11 +22,12 @@ public class JanelaConsultaCorridas {
 	private static TabelaNaoEditavel tableModel;
 	private static JTable tabela;
 	private JButton botaoAtualizar;
-    /**
-     * Cria e retorna a janela de consulta de corridas.
-     *
-     * @return A janela de consulta de corridas.
-     */
+
+	/**
+	 * Cria e retorna a janela de consulta de corridas.
+	 *
+	 * @return A janela de consulta de corridas.
+	 */
 	public JFrame criarJanela() {
 		janelaConsultaCorridas = new JFrame("Tabela de Corridas");
 		janelaConsultaCorridas.setResizable(false);
@@ -47,29 +49,29 @@ public class JanelaConsultaCorridas {
 		});
 		return janelaConsultaCorridas;
 	}
-	
-	    /**
-	     * Ajusta a largura das colunas da tabela de acordo com as porcentagens fornecidas.
-	     *
-	     * @param table               A tabela a ser ajustada.
-	     * @param tablePreferredWidth A largura preferida da tabela.
-	     * @param percentages         As porcentagens para cada coluna.
-	     */	
-		public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth,
-		        double... percentages) {
-		    double total = 0;
-		    for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
-		        total += percentages[i];
-		    }
-		    for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
-		        TableColumn column = table.getColumnModel().getColumn(i);
-		        column.setPreferredWidth((int)
-		                (tablePreferredWidth * (percentages[i] / total)));
-		    }
+
+	/**
+	 * Ajusta a largura das colunas da tabela de acordo com as porcentagens
+	 * fornecidas.
+	 *
+	 * @param table               A tabela a ser ajustada.
+	 * @param tablePreferredWidth A largura preferida da tabela.
+	 * @param percentages         As porcentagens para cada coluna.
+	 */
+	public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth, double... percentages) {
+		double total = 0;
+		for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+			total += percentages[i];
 		}
-    /**
-     * Cria e atualiza a tabela de corridas com os dados do banco de dados MySQL.
-     */	
+		for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+			TableColumn column = table.getColumnModel().getColumn(i);
+			column.setPreferredWidth((int) (tablePreferredWidth * (percentages[i] / total)));
+		}
+	}
+
+	/**
+	 * Cria e atualiza a tabela de corridas com os dados do banco de dados MySQL.
+	 */
 	public static void atualizarTabelaCorridas() {
 		tableModel = new TabelaNaoEditavel();
 		tabela = new JTable(tableModel);

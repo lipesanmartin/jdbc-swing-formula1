@@ -30,7 +30,7 @@ public class JanelaPiloto {
 	private JTextField jTextNumero;
 	private JTextField jTextIdEquipe;
 	private JButton botaoConsultar;
-	private JComboBox<String> jComboboxIdEquipe; // transformar em um combobox de pilotos depois
+	private JComboBox<String> jComboboxIdEquipe;
 	private JButton botaoGravar;
 	private JButton botaoLimpar;
 	private JButton botaoApagar;
@@ -285,13 +285,11 @@ public class JanelaPiloto {
 							String nomeEquipe = (String) jComboboxIdEquipe.getSelectedItem();
 							Equipe equipe = new Equipe();
 							idEquipe = equipe.getIdByName(nomeEquipe);
-
 							if (!piloto.consultarPiloto(id)) {
 								if (!piloto.atualizarPiloto(id, numCarro, idEquipe)) {
 									piloto.cadastrarPiloto(id, nome, nacionalidade, numCarro, idEquipe);
 									JOptionPane.showMessageDialog(janelaPiloto, "Cadastro realizado!");
 								} else {
-
 									JOptionPane.showMessageDialog(janelaPiloto, "Erro no cadastro do piloto!");
 								}
 								resetJanela();

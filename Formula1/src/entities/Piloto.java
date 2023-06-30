@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connection.Conexao;
+
 /**
  * A classe Piloto representa um piloto de corrida.
  */
@@ -18,11 +19,13 @@ public class Piloto {
 	private String nacionalidade;
 	private Integer numCarro;
 	private Integer idEquipe;
+
 	/**
 	 * Construtor padrão da classe Piloto.
 	 */
 	public Piloto() {
 	}
+
 	/**
 	 * Construtor explícito da classe Piloto que recebe o ID do piloto.
 	 *
@@ -35,14 +38,16 @@ public class Piloto {
 		this.numCarro = 0;
 		this.idEquipe = 0;
 	}
+
 	/**
-	 * Construtor explícito da classe Piloto que recebe todas as informações do piloto.
+	 * Construtor explícito da classe Piloto que recebe todas as informações do
+	 * piloto.
 	 *
-	 * @param idPiloto       o ID do piloto
-	 * @param nome           o nome do piloto
-	 * @param nacionalidade  a nacionalidade do piloto
-	 * @param numCarro       o número do carro do piloto
-	 * @param idEquipe       o ID da equipe do piloto
+	 * @param idPiloto      o ID do piloto
+	 * @param nome          o nome do piloto
+	 * @param nacionalidade a nacionalidade do piloto
+	 * @param numCarro      o número do carro do piloto
+	 * @param idEquipe      o ID da equipe do piloto
 	 */
 	public Piloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro, Integer idEquipe) {
 		this.idPiloto = idPiloto;
@@ -51,6 +56,7 @@ public class Piloto {
 		this.numCarro = numCarro;
 		this.idEquipe = idEquipe;
 	}
+
 	/**
 	 * Obtém o ID do piloto.
 	 *
@@ -59,6 +65,7 @@ public class Piloto {
 	public Integer getIdPiloto() {
 		return idPiloto;
 	}
+
 	/**
 	 * Define/modifica o ID do piloto.
 	 *
@@ -67,6 +74,7 @@ public class Piloto {
 	public void setIdPiloto(Integer idPiloto) {
 		this.idPiloto = idPiloto;
 	}
+
 	/**
 	 * Obtém o nome do piloto.
 	 *
@@ -75,6 +83,7 @@ public class Piloto {
 	public String getNome() {
 		return nome;
 	}
+
 	/**
 	 * Define/modifica o nome do piloto.
 	 *
@@ -83,6 +92,7 @@ public class Piloto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	/**
 	 * Obtém a nacionalidade do piloto.
 	 *
@@ -91,6 +101,7 @@ public class Piloto {
 	public String getNacionalidade() {
 		return nacionalidade;
 	}
+
 	/**
 	 * Define/modifica a nacionalidade do piloto.
 	 *
@@ -99,6 +110,7 @@ public class Piloto {
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
+
 	/**
 	 * Obtém o número do carro do piloto.
 	 *
@@ -107,6 +119,7 @@ public class Piloto {
 	public Integer getNumCarro() {
 		return numCarro;
 	}
+
 	/**
 	 * Obtém o número do carro do piloto com base no ID do piloto.
 	 *
@@ -115,35 +128,35 @@ public class Piloto {
 	 */
 	public Integer getNumCarroById(Integer idPiloto) {
 		// Define a conexão
-				Connection conexao = null;
-				try {
-					conexao = Conexao.conectaBanco();
-					// Define a consulta
-					String sql = "select NumeroCarro from piloto where ID=?";
-					// Prepara a consulta
-					PreparedStatement ps = conexao.prepareStatement(sql);
-					// Define os parâmetros da consulta
-					ps.setInt(1, idPiloto);
-					// Executa a consulta, resultando em um objeto da classe ResultSet
-					ResultSet rs = ps.executeQuery();
-					if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
-						System.out.println("Piloto não cadastrado!");
-						return -1; // Piloto não cadastrado
-					} else {
-						// Efetua a leitura do registro da tabela
-						while (rs.next()) {
-							this.numCarro = rs.getInt("NumeroCarro");
-						}
-						return numCarro;
-					}
-				} catch (SQLException erro) {
-					System.out.println("Erro ao consultar o piloto: " + erro.toString());
-					return -1;
-				} finally {
-					Conexao.fechaConexao(conexao);
+		Connection conexao = null;
+		try {
+			conexao = Conexao.conectaBanco();
+			// Define a consulta
+			String sql = "select NumeroCarro from piloto where ID=?";
+			// Prepara a consulta
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			// Define os parâmetros da consulta
+			ps.setInt(1, idPiloto);
+			// Executa a consulta, resultando em um objeto da classe ResultSet
+			ResultSet rs = ps.executeQuery();
+			if (!rs.isBeforeFirst()) { // Verifica se não está antes do primeiro registro
+				System.out.println("Piloto não cadastrado!");
+				return -1; // Piloto não cadastrado
+			} else {
+				// Efetua a leitura do registro da tabela
+				while (rs.next()) {
+					this.numCarro = rs.getInt("NumeroCarro");
 				}
+				return numCarro;
 			}
-	
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar o piloto: " + erro.toString());
+			return -1;
+		} finally {
+			Conexao.fechaConexao(conexao);
+		}
+	}
+
 	/**
 	 * Define/modifica o número do carro.
 	 *
@@ -152,6 +165,7 @@ public class Piloto {
 	public void setNumCarro(Integer numCarro) {
 		this.numCarro = numCarro;
 	}
+
 	/**
 	 * Obtém o ID da equipe.
 	 *
@@ -160,6 +174,7 @@ public class Piloto {
 	public Integer getIdEquipe() {
 		return idEquipe;
 	}
+
 	/**
 	 * Define/modifica o ID da equipe.
 	 *
@@ -168,14 +183,15 @@ public class Piloto {
 	public void setIdEquipe(Integer idEquipe) {
 		this.idEquipe = idEquipe;
 	}
+
 	/**
 	 * Cadastra um piloto.
 	 *
-	 * @param idPiloto       O ID do piloto a ser cadastrado.
-	 * @param nome           O nome do piloto.
-	 * @param nacionalidade  A nacionalidade do piloto.
-	 * @param numCarro       O número do carro do piloto.
-	 * @param idEquipe       O ID da equipe do piloto.
+	 * @param idPiloto      O ID do piloto a ser cadastrado.
+	 * @param nome          O nome do piloto.
+	 * @param nacionalidade A nacionalidade do piloto.
+	 * @param numCarro      O número do carro do piloto.
+	 * @param idEquipe      O ID da equipe do piloto.
 	 * @return true se o cadastro foi realizado com sucesso e false caso contrário.
 	 */
 	public boolean cadastrarPiloto(Integer idPiloto, String nome, String nacionalidade, Integer numCarro,
@@ -208,6 +224,7 @@ public class Piloto {
 			Conexao.fechaConexao(conexao);
 		}
 	}
+
 	/**
 	 * Consulta um piloto pelo ID.
 	 *
@@ -248,6 +265,7 @@ public class Piloto {
 			Conexao.fechaConexao(conexao);
 		}
 	}
+
 	/**
 	 * Consulta um piloto pelo número do carro.
 	 *
@@ -284,12 +302,14 @@ public class Piloto {
 			Conexao.fechaConexao(conexao);
 		}
 	}
+
 	/**
 	 * Atualiza o número do carro de um piloto.
 	 *
 	 * @param idPiloto O ID do piloto a ser atualizado.
 	 * @param numCarro O novo número do carro.
-	 * @return true se a atualização foi realizada com sucesso e false caso contrário.
+	 * @return true se a atualização foi realizada com sucesso e false caso
+	 *         contrário.
 	 */
 	public boolean atualizarPiloto(Integer idPiloto, Integer numCarro) {
 		if (!consultarPiloto(idPiloto))
@@ -321,13 +341,15 @@ public class Piloto {
 			}
 		}
 	}
+
 	/**
 	 * Atualiza o número do carro e o ID da equipe de um piloto.
 	 *
 	 * @param idPiloto O ID do piloto a ser atualizado.
 	 * @param numCarro O novo número do carro.
 	 * @param idEquipe O novo ID da equipe.
-	 * @return true se a atualização foi realizada com sucesso, false caso contrário.
+	 * @return true se a atualização foi realizada com sucesso, false caso
+	 *         contrário.
 	 */
 	public boolean atualizarPiloto(Integer idPiloto, Integer numCarro, Integer idEquipe) {
 		if (!consultarPiloto(idPiloto))
@@ -395,6 +417,7 @@ public class Piloto {
 		}
 		return id;
 	}
+
 	/**
 	 * Apaga um piloto pelo ID.
 	 *
@@ -430,6 +453,7 @@ public class Piloto {
 			}
 		}
 	}
+
 	/**
 	 * Obtém os dados da tabela de pilotos.
 	 *
@@ -472,6 +496,7 @@ public class Piloto {
 			Conexao.fechaConexao(conexao);
 		}
 	}
+
 	/**
 	 * Obtém a lista de nomes dos pilotos.
 	 *

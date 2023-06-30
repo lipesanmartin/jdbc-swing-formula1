@@ -13,6 +13,7 @@ import javax.swing.table.TableColumn;
 
 import entities.Piloto;
 import windows.customclasses.TabelaNaoEditavel;
+
 /**
  * Classe responsável por criar uma janela de consulta de pilotos.
  */
@@ -21,11 +22,12 @@ public class JanelaConsultaPilotos {
 	private static TabelaNaoEditavel tableModel;
 	private static JTable tabela;
 	private JButton botaoAtualizar;
-    /**
-     * Cria e retorna a janela de consulta de pilotos.
-     *
-     * @return A janela de consulta de pilotos.
-     */
+
+	/**
+	 * Cria e retorna a janela de consulta de pilotos.
+	 *
+	 * @return A janela de consulta de pilotos.
+	 */
 	public JFrame criarJanela() {
 		janelaConsultaPilotos = new JFrame("Tabela de Pilotos");
 		janelaConsultaPilotos.setResizable(false);
@@ -39,7 +41,7 @@ public class JanelaConsultaPilotos {
 		botaoAtualizar.setBounds(310, 325, 100, 20);
 		botaoAtualizar.setEnabled(true);
 		janelaConsultaPilotos.add(botaoAtualizar);
-		
+
 		botaoAtualizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -50,13 +52,14 @@ public class JanelaConsultaPilotos {
 		return janelaConsultaPilotos;
 	}
 
-    /**
-     * Ajusta a largura das colunas da tabela de acordo com as porcentagens fornecidas.
-     *
-     * @param table               A tabela a ser ajustada.
-     * @param tablePreferredWidth A largura preferida da tabela.
-     * @param percentages         As porcentagens para cada coluna.
-     */
+	/**
+	 * Ajusta a largura das colunas da tabela de acordo com as porcentagens
+	 * fornecidas.
+	 *
+	 * @param table               A tabela a ser ajustada.
+	 * @param tablePreferredWidth A largura preferida da tabela.
+	 * @param percentages         As porcentagens para cada coluna.
+	 */
 	public static void setJTableColumnsWidth(JTable table, int tablePreferredWidth, double... percentages) {
 		double total = 0;
 		for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
@@ -68,9 +71,9 @@ public class JanelaConsultaPilotos {
 		}
 	}
 
-    /**
-     * Cria e atualiza a tabela de pilotos com os dados do banco de dados.
-     */
+	/**
+	 * Cria e atualiza a tabela de pilotos com os dados do banco de dados.
+	 */
 	public static void atualizarTabelaPilotos() {
 		tableModel = new TabelaNaoEditavel();
 		tabela = new JTable(tableModel);
