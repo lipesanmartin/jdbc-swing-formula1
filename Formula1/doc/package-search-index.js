@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"application"},{"l":"connection"},{"l":"entities"},{"l":"tests"},{"l":"windows"},{"l":"windows.customclasses"}];updateSearchResults();

@@ -6,7 +6,7 @@ import windows.JanelaPrincipal;
  * A classe Programa é responsável por iniciar a aplicação e apresentar o menu
  * principal.
  * 
- * @author Felipe Sanmartin, Daniel Nogueira, Francisco Ferreira, Igor Rodrigues
+ * @author Felipe Sanmartin
  *
  */
 public class Programa {
